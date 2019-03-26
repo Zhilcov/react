@@ -5,10 +5,10 @@ body{
     margin-top: 10px;
 }
 table{
-    margin-top: 20px;
+    margin: 20px;
 }  
 .input-group{
-    margin-top: 20px;
+    margin: 20px 2.2vw;
 }
 .input-group input{
     margin: 10px 0;

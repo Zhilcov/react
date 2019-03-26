@@ -136,7 +136,7 @@ class Form extends React.Component{
             <form action="" onSubmit = {this.pushFigure} className="col col-md-4 ml-md-auto">
                 
                 <Input></Input>
-                <button className="btn btn-success">Добавить</button>
+               
             </form>
             <Stats fig = {figures}/>
 

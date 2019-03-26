@@ -16,14 +16,20 @@ class Input extends React.Component{
         var input;        
         switch (this.state.figure) {
             case "circle":input = <div className="figure"><p>Введите радиус</p>
-                                <input className="form-control" type="number" placeholder="Радиус"/></div>;
+                                <input className="form-control" type="number" placeholder="Радиус"/>
+                                <button className="btn btn-success">Добавить</button>
+                                </div>;
             break;
             case "square":input = <div className="figure"><p>Введите длину стороны</p>
-                                 <input className="form-control" type="number" placeholder="Сторона a"/></div>;
+                                 <input className="form-control" type="number" placeholder="Сторона a"/>
+                                 <button className="btn btn-success">Добавить</button>
+                                 </div>;
+                                 
             break;
             case "rectangle":input = <div className="figure"><p>Введите координаты</p>
                                     <input className="form-control" type="number" placeholder="Сторона a"/>
                                     <input className="form-control" type="number" placeholder="Сторона b"/> <br/>
+                                    <button className="btn btn-success">Добавить</button>
                                     {/* <input type="number"/><input type="number"/> */}
                                     </div>;
             break;       
@@ -31,6 +37,7 @@ class Input extends React.Component{
                                  <input className="form-control" type="number" placeholder="Сторона a"/>
                                     <input className="form-control" type="number" placeholder="Сторона b"/> <br/>
                                     <input className="form-control" type="number" placeholder="Сторона c"/> <br/>
+                                    <button className="btn btn-success">Добавить</button>
                                     </div>;
                     break;                    
             default:
@@ -51,8 +58,11 @@ class Input extends React.Component{
                         <option value="rectangle">Прямоугольник</option>
                         <option value="triangle">Треугольник</option>
                 </select>
-                    {input}      
+                    {input}  
+                    
+                        
                 </div>
+                
               </div>
         )
     }
