@@ -116,7 +116,6 @@ class Form extends React.Component{
         var a = window.confirm("Удалить?");
         if (a){
             var target = e.target.parentNode.parentNode;
-            console.log(target);
             figures.splice(target.id,1);
             this.setState({ rerender: !this.state.rerender })
         }
@@ -134,12 +133,14 @@ class Form extends React.Component{
            <div className="">
             <Info className ="col col-md-4" fig = {figures} delRow={this.delRow}></Info> 
          
-            <form action="" onSubmit = {this.pushFigure} className="col col-md-4">
+            <form action="" onSubmit = {this.pushFigure} className="col col-md-4 ml-md-auto">
                 
                 <Input></Input>
-                <button>Добавить</button>
+                <button className="btn btn-success">Добавить</button>
             </form>
             <Stats fig = {figures}/>
+
+            
            </div>
         )
     }

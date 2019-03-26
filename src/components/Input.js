@@ -15,19 +15,22 @@ class Input extends React.Component{
     render(){
         var input;        
         switch (this.state.figure) {
-            case "circle":input = <div className="figure"><p>Введите радиус</p><input type="number"/></div>;
+            case "circle":input = <div className="figure"><p>Введите радиус</p>
+                                <input className="form-control" type="number" placeholder="Радиус"/></div>;
             break;
-            case "square":input = <div className="figure"><p>Введите длину стороны</p><input type="number"/></div>;
+            case "square":input = <div className="figure"><p>Введите длину стороны</p>
+                                 <input className="form-control" type="number" placeholder="Сторона a"/></div>;
             break;
             case "rectangle":input = <div className="figure"><p>Введите координаты</p>
-                                    <input type="number"/><input type="number"/> <br/>
+                                    <input className="form-control" type="number" placeholder="Сторона a"/>
+                                    <input className="form-control" type="number" placeholder="Сторона b"/> <br/>
                                     {/* <input type="number"/><input type="number"/> */}
                                     </div>;
             break;       
             case "triangle":input = <div className="figure"><p>Введите длины сторон</p>
-                                    <input type="number"/> <br/>
-                                    <input type="number"/> <br/>
-                                    <input type="number"/> <br/>
+                                 <input className="form-control" type="number" placeholder="Сторона a"/>
+                                    <input className="form-control" type="number" placeholder="Сторона b"/> <br/>
+                                    <input className="form-control" type="number" placeholder="Сторона c"/> <br/>
                                     </div>;
                     break;                    
             default:
@@ -36,18 +39,20 @@ class Input extends React.Component{
         }
         return (
                 <div className="">
-                    <p><select size="1" defaultValue = "Выберите фигуру" name="figure" onChange = {this.setInput} >
+                    <h1>Ввод данных</h1>
+                    <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                        <label className="input-group-text" for="inputGroupSelect01">Фигуры</label>
+                    </div>
+                <select defaultValue = "Выберите фигуру" name="figure" onChange = {this.setInput} className="custom-select" id="inputGroupSelect01">
                     <option disabled>Выберите фигуру</option>
-                    <option value="circle">Круг</option>
-                    <option value="square">Квадрат</option>
-                    <option value="rectangle">Прямоугольник</option>
-                    <option value="triangle">Треугольник</option>
-                </select></p>
-
-               
-
-                {input}
-
+                        <option value="circle">Круг</option>
+                        <option value="square">Квадрат</option>
+                        <option value="rectangle">Прямоугольник</option>
+                        <option value="triangle">Треугольник</option>
+                </select>
+                    {input}      
+                </div>
               </div>
         )
     }

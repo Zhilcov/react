@@ -26,16 +26,20 @@ class Chart extends Component {
             }      
           });          
         return(
-            <Pie 
-            data={[{value:squares,label:"squares"},
-                    {value:rectangle,label:"rectangle"},
-                    {value:circle,label:"circle"},
-                    {value:triangle,label:"triangle"}]}
-            options={{
-                title:'cool pie chart',
-                text:"coolest data"
-            }}
-            />
+          <div className="col col-md-4 text-center">
+                <h1>Статистика</h1>
+                <Pie 
+                    data={[{value:squares,label:"squares"},
+                            {value:rectangle,label:"rectangle"},
+                            {value:circle,label:"circle"},
+                            {value:triangle,label:"triangle"}]}
+                    options={{
+                        title:'cool pie chart',
+                        text:"coolest data"
+                    }}
+                    />
+          </div>
+          
         );
     }
 }
