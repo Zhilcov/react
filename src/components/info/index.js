@@ -1,13 +1,9 @@
 import React from "react";
-import figures from "../figuresCatalog";
 
 
 
 class Info extends React.Component{
-    state = {
-        rerender : true
-    }
-
+    
     round(params,sign) {
         return Math.round(params*sign)/sign;
     }

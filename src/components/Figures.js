@@ -1,5 +1,4 @@
 
-
 class Figure {
     constructor (a) {
         this.a = a;
