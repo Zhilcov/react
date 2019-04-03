@@ -12,7 +12,8 @@ class Input extends React.Component{
 
     setInput = (e) =>{
         this.setState({
-            figure : e.target.value
+            figure : e.target.value,
+            
         })
     }
 
@@ -34,10 +35,7 @@ class Input extends React.Component{
                 break;
         }
        
-        console.log(figures);
-    
-        
-         this.props.pushFigure();  
+        this.props.pushFigure();  
     }
     render(){
         

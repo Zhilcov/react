@@ -18,9 +18,6 @@ class Triangle extends React.Component{
      
       handleChange(event) {
           var id = event.target.id;
-          console.log(id);
-          
-          var id = event.target.id;
           if(id === "a"){
             this.setState({a: event.target.value});   
           }else if(id ==="b"){
@@ -40,7 +37,7 @@ class Triangle extends React.Component{
                 alert("Cторона должна быть больше 0");
             }else{
                 if (a + b >= c && a + c >= b && b + c >= a){
-                    var obj = new Figures.Triangle(a,b,c);  
+                     obj = new Figures.Triangle(a,b,c);  
                     this.props.addFigures("t" , obj); 
                 }else alert("треугольник не существует");
             }   

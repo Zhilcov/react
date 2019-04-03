@@ -5,6 +5,7 @@ class Rectangle extends React.Component{
 
     constructor(props) {
         super(props);
+        
         this. state = {
             a: 0,
             b: 0
