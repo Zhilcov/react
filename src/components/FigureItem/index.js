@@ -12,7 +12,12 @@ class FigureItem extends React.Component{
                 <th scope="row">{figure.id}</th>
                 <td>{figure.value}</td>
                 <td>{figure.label}</td>
-                <td className = "deletttt" ><i className="fas fa-trash-alt"  onClick={() => deleteFigure(figure.id) }></i></td>        
+                <td className = "deletttt" ><i className="fas fa-trash-alt"  onClick={() => {
+                   var a =  window.confirm("Вы уверены что хотите удалить?");
+                    if(a){
+                        deleteFigure(figure.id)
+                    }
+                    }}></i></td>        
             </tr>
         );
     }
