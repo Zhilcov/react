@@ -47,10 +47,7 @@ import {
             figure.id !== action.id
           )
         }
-        
-        
-      
-  
+
       default:
         return state.sort(compare);
     }

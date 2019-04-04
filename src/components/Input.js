@@ -32,7 +32,7 @@ class Input extends React.Component{
                 break;
         }
         return (
-                <div className="col col-md-4">
+                <div className="col col-md-3">
                     <h1>Ввод данных</h1>
                     <div className="input-group mb-3">
                     <div className="input-group-prepend">

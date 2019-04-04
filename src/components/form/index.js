@@ -6,7 +6,7 @@ import Stats from "../../container/stats";
 class Form extends React.Component{
     render(){
         return (
-           <div className="">
+           <div className="row">
             <Info className = "info" ></Info> 
             <Input className = "Input"></Input>   
             <Stats className = "Stats"/>
