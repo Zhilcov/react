@@ -6,7 +6,6 @@ class FigureItem extends React.Component{
         
         const { figure , deleteFigure } = this.props;     
       
-           
         return (
             <tr>
                 <th scope="row">{figure.id}</th>

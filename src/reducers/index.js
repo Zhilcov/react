@@ -27,22 +27,22 @@ import {
       return 0;
     }
 
+    
+
   export default function todos(state = initialState, action) {
     switch (action.type) {
       case ADD_FIGURE:
       return [
         ...state,
         { 
-          value: action.value,
+          value: Math.round(action.value * 100) / 100 ,
           id : state.reduce((maxId, figure) => Math.max(figure.id, maxId), -1) + 1,
           label : action.text
         }
       ].sort(compare);     
 
       case DELETE_FIGURE:
-        {
-          console.log("удаляю "+ action.id);
-          
+        {          
           return state.filter(figure =>
             figure.id !== action.id
           )
