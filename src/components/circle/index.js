@@ -25,7 +25,6 @@ class Circle extends React.Component{
         }else{
             alert("Радиус должен быть больше 0");
         } 
-       
       }
 
       render(){
