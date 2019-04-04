@@ -1,4 +1,4 @@
-var figures = [
+/* var figures = [
     {
         value : 124,
         id : Math.random()*12+4,
@@ -16,4 +16,4 @@ var figures = [
     }
 ]
 
- export default figures   
+ export default figures    */

@@ -37,8 +37,9 @@ class Triangle extends React.Component{
                 alert("Cторона должна быть больше 0");
             }else{
                 if (a + b >= c && a + c >= b && b + c >= a){
-                     obj = new Figures.Triangle(a,b,c);  
-                    this.props.addFigures("t" , obj); 
+                    console.log(a, b ,c );
+                     obj = new Figures.Triangle(+a,+b,+c);  
+                    this.props.addFigures("triangle" , obj.calcArea()); 
                 }else alert("треугольник не существует");
             }   
       }
@@ -50,7 +51,7 @@ class Triangle extends React.Component{
                <input className="form-control" type="number" id ="a" placeholder="Сторона a"  onChange={this.handleChange}/>
                <input className="form-control" type="number" id ="b" placeholder="Сторона b"  onChange={this.handleChange}/> <br/>
                <input className="form-control" type="number" id ="c" placeholder="Сторона c"  onChange={this.handleChange}/> <br/>
-               <button className="btn btn-success" onClick={ () => this.addTriangle() }>Добавить</button>
+               <button className="btn btn-success" onClick={ this.addTriangle }>Добавить</button>
                
             </div>
           )

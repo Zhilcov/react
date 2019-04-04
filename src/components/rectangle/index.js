@@ -11,9 +11,7 @@ class Rectangle extends React.Component{
             b: 0
         };
         this.handleChange = this.handleChange.bind(this);
-  
-        this.addRec = this.addRec.bind(this);
-     
+        this.addRec = this.addRec.bind(this);     
       }
     
      
@@ -34,10 +32,9 @@ class Rectangle extends React.Component{
            if (a <= 0 || b<= 0){
             alert("Cторона должна быть больше 0");
             }else{
-                obj =  new Figures.Rectangle(a,b);
-                this.props.addFigures("r" , obj); 
+                obj =  new Figures.Rectangle(+a,+b);
+                this.props.addFigures("rectangle" , obj.calcArea()); 
             } 
-        
       }
             
         
@@ -46,7 +43,7 @@ class Rectangle extends React.Component{
             <div className="figure"><p>Введите координаты</p>
             <input className="form-control" type="number" id = "a" placeholder="Сторона a" onChange={this.handleChange}/>
             <input className="form-control" type="number" id = "b"  placeholder="Сторона b" onChange={this.handleChange}/> <br/>
-            <button className="btn btn-success " onClick={ () => this.addRec() }>Добавить</button>
+            <button className="btn btn-success " onClick={ this.addRec}>Добавить</button>
             </div>
           )
       }

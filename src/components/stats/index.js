@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import { Pie } from 'react-chartjs';
 
-class Chart extends Component {
-   
-
-      
-
+class Stats extends Component {
     render(){
         var squares = 0;
         var rectangle = 0;
         var circle = 0;
         var triangle = 0;
-        this.props.fig.forEach(obj => {                
+        const  {figures} = this.props        
+        figures.forEach(obj => {                
             if (obj.label ==="square"){
                 squares += obj.value;
             }
@@ -39,9 +36,8 @@ class Chart extends Component {
                     }}
                     />
           </div>
-          
         );
     }
 }
 
-export default Chart
+export default Stats

@@ -1,6 +1,5 @@
 import React from "react";
 import Square from "./square"
-import figures from "./figuresCatalog";
 import Circle from "./circle"
 import Rectangle from "./rectangle"
 import Triangle from "./triangle"
@@ -12,42 +11,21 @@ class Input extends React.Component{
 
     setInput = (e) =>{
         this.setState({
-            figure : e.target.value,
-            
+            figure : e.target.value
         })
     }
-
-    addFigures =  (type, obj) =>{
-        switch (type) {
-            case "s":
-            figures.push({value:obj.calcArea(), id : Date.now(), label :"square"});
-                break;
-            case "c":
-            figures.push({value:obj.calcArea(), id : Date.now(), label :"circle"});
-                break;
-            case "r":
-            figures.push({value:obj.calcArea(), id : Date.now(), label :"rectangle"});
-                break;
-            case "t":
-            figures.push({value:obj.calcArea(), id : Date.now(), label :"triangle"});
-                break;    
-            default:
-                break;
-        }
-       
-        this.props.pushFigure();  
-    }
+    
     render(){
-        
+        const {addFigure} = this.props        
         var input;        
         switch (this.state.figure) {
-            case "circle":input = <Circle addFigures={this.addFigures}></Circle>
+            case "circle":input = <Circle addFigures={(text,value)=> addFigure(text,value)}></Circle>
             break;
-            case "square":input = <Square addFigures={this.addFigures}></Square>        
+            case "square":input = <Square addFigures={(text,value)=>addFigure(text,value)}></Square>        
             break;
-            case "rectangle":input = <Rectangle addFigures={this.addFigures}></Rectangle>
+            case "rectangle":input = <Rectangle addFigures={(text,value)=>addFigure(text,value)}></Rectangle>
             break;       
-            case "triangle":input = <Triangle addFigures={this.addFigures}></Triangle>
+            case "triangle":input = <Triangle addFigures={(text,value)=>addFigure(text,value)}></Triangle>
                     break;                    
             default:
             input = "";

@@ -3,11 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.5",
+    "prop-types": "^15.6.1",
+    "react-redux": "^5.0.7",
+    "reselect": "^3.0.1",
+    "todomvc-app-css": "^2.1.1",
     "chart.js": "^1.1.1",
     "react": "^16.8.4",
     "react-chartjs": "^1.2.0",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "redux": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,5 +29,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "react-redux": "^6.0.1"
+  }
 }

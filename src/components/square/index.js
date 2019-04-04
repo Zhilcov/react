@@ -17,14 +17,15 @@ class Square extends React.Component{
         this.setState({a: event.target.value});      
       }
 
-     addSquare(event) {
+     addSquare() {
            var a = this.state.a; var obj ;
         if (a>0){
           obj = new Figures.Figure(a);
+          this.props.addFigures("square" , obj.calcArea()); 
         }else{
             alert("Cторона должна быть больше 0");
         } 
-         this.props.addFigures("s" , obj); 
+        
       }
 
       render(){
@@ -33,7 +34,7 @@ class Square extends React.Component{
             <form action="" className="">
                 <input className="form-control" type="number" placeholder="Сторона a" onChange={this.handleChange}/>
             </form>
-            <button className="btn btn-success " onClick={ (event) => this.addSquare(event) }>Добавить</button>
+            <button className="btn btn-success " onClick={ this.addSquare }>Добавить</button>
             </div>
           )
       }

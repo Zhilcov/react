@@ -1,0 +1,2 @@
+export const ADD_FIGURE = 'ADD_FIGURE'
+export const DELETE_FIGURE = 'DELETE_FIGURE'

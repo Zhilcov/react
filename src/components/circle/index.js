@@ -20,10 +20,12 @@ class Circle extends React.Component{
            var a = this.state.a; var obj ;
         if (a>0){
             obj = new Figures.Circle(a);
+            console.log(obj.calcArea());
+            this.props.addFigures("circle" , obj.calcArea());
         }else{
             alert("Радиус должен быть больше 0");
         } 
-         this.props.addFigures("c" , obj); 
+       
       }
 
       render(){
@@ -32,7 +34,7 @@ class Circle extends React.Component{
                 <form action="" className="">
                     <input className="form-control" type="number" placeholder="Радиус" onChange={this.handleChange}/>
                 </form>
-            <button className="btn btn-success " onClick={ () => this.addCircle() }>Добавить</button>
+            <button className="btn btn-success " onClick={ this.addCircle }>Добавить</button>
             </div>
           )
       }
