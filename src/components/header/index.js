@@ -6,8 +6,8 @@ class Header extends React.Component {
     render(){
         return(
             <Navbar expand="lg" variant="light" bg="light" className="justify-content-end">
-             <Nav.Link><Link to="/"> На главную </Link> </Nav.Link>
-             <Nav.Link><Link to="/stats"> Статистика </Link> </Nav.Link>
+            <Link className="nav-link" to="/"> На главную </Link>
+             <Link className="nav-link" to="/stats"> Статистика </Link> 
             </Navbar>
             
         )

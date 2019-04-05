@@ -4,11 +4,6 @@ import {
   } from '../constants'
   const initialState =  [
       {
-          value : 124,
-          id : 0,
-          label: "rectangle"
-      },
-      {
           value : 22,
           id : 1,
           label: "triangle"
