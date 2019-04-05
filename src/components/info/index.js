@@ -4,7 +4,9 @@ import './info.css';
 
 class Info extends React.Component {
     render(){       
-        const {figures, actions} = this.props        
+        const {figures, actions} = this.props 
+        console.log(figures);
+               
         return(
             <div className ="col col-md-12">
                     <h1 className ="info">Информация</h1>

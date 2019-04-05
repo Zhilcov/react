@@ -22,7 +22,8 @@ class Stats extends Component {
             if (obj.label ==="triangle"){
                 triangle += obj.value;
             }      
-          });          
+          });     
+               
         return(
           <div className="col col-md-12 text-center">
                 <h1>Статистика</h1>

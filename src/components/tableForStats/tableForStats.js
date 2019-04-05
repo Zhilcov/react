@@ -1,21 +1,38 @@
 import React from 'react';
 import Table from "react-bootstrap/Table"
+import Item from "../itemForStat/item"
 class tableForStats extends React.Component{
+    
+    caclPercent(allArea, figure) {
+        var precent = 100 * figure / allArea 
+        return ( Math.round(precent * 100) / 100 )
+    }
+
     render(){
-        console.log(this.props);
-        
+            var figures = this.props 
+            var allArea=0;
+            for (var key in figures) {
+                allArea += figures[key];
+            }
+            let items = [];
+            for (var key in figures) {
+                items.push(<Item key={figures} figure = {key} area = {this.caclPercent(allArea,figures[key])}/>)
+            };
+
         return(
             <div className ="col col-md-12">
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Тип фигуры</th>
                             <th>Процент от всей площади</th>
                         </tr>
                     </thead>
                     <tbody>
-                    
+                        {items[0]}
+                        {items[1]}
+                        {items[2]}
+                        {items[3]}
                     </tbody>
                 </Table>
             </div>
