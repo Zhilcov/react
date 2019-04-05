@@ -42,7 +42,7 @@ class Rectangle extends React.Component{
           return(
             <div className="figure"><p>Введите координаты</p>
             <input className="form-control" type="number" id = "a" placeholder="Сторона a" onChange={this.handleChange}/>
-            <input className="form-control" type="number" id = "b"  placeholder="Сторона b" onChange={this.handleChange}/> <br/>
+            <input className="form-control" type="number" id = "b"  placeholder="Сторона b" onChange={this.handleChange}/>
             <button className="btn btn-success " onClick={ this.addRec}>Добавить</button>
             </div>
           )

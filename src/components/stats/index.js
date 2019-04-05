@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Pie } from 'react-chartjs';
+import TableForStats from "../tableForStats/tableForStats"
 
 class Stats extends Component {
     render(){
@@ -23,18 +24,31 @@ class Stats extends Component {
             }      
           });          
         return(
-          <div className="col col-md-4 text-center">
+          <div className="col col-md-12 text-center">
                 <h1>Статистика</h1>
-                <Pie 
-                    data={[{value:squares,label:"squares"},
-                            {value:rectangle,label:"rectangle"},
-                            {value:circle,label:"circle"},
-                            {value:triangle,label:"triangle"}]}
-                    options={{
-                        title:'cool pie chart',
-                        text:"coolest data"
-                    }}
-                    />
+                <div className="row">
+                    <div className="col col-md-6">
+                        <TableForStats  squares = {squares} 
+                                        rectangle={rectangle} 
+                                        circle={circle}
+                                        triangle={triangle}>
+                        </TableForStats>
+                    </div>
+                    <div className="col col-md-6">
+                        <Pie 
+                        data={[{value:squares,label:"squares"},
+                                {value:rectangle,label:"rectangle"},
+                                {value:circle,label:"circle"},
+                                {value:triangle,label:"triangle"}]}
+                        options={{
+                            title:'cool pie chart',
+                            text:"coolest data"
+                        }}
+                        />
+                    </div>
+                </div>
+                
+               
           </div>
         );
     }

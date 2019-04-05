@@ -1,15 +1,18 @@
 import React from "react";
 import Input from "../../container/input";
 import Info from "../../container/info";
-import Stats from "../../container/stats";
+import Header from "../header"
 
 class Form extends React.Component{
     render(){
         return (
+            <div className="container">   
+            <Header></Header>  
            <div className="row">
+           <Input className = "Input"></Input>
             <Info className = "info" ></Info> 
-            <Input className = "Input"></Input>   
-            <Stats className = "Stats"/>
+           {/*  <Stats className = "Stats"/> */}
+           </div>
            </div>
         )
     }

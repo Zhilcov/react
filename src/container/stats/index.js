@@ -5,7 +5,7 @@ import Stats from '../../components/stats'
 
 const mapStateToProps = state => ({    
     figures: state
-  })
+})
   
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(TodoActions, dispatch)

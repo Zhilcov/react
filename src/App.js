@@ -1,20 +1,25 @@
-import React from "react";
-import Info from "./components/info/";
-import Form from "./components/form/";
 
-import figures from "./components/figuresCatalog";
+import React, {lazy, Suspense} from 'react';
+import {Route, Switch, Redirect}  from 'react-router-dom';
 
+import {BrowserRouter as Router }  from 'react-router-dom';
+const Form = lazy(() => import('./components/form/'));
+const Statistics = lazy(() => import('./container/stats'));
 
-class App extends React.Component {
- 
-
-    
+class App extends React.Component {    
     render(){
       return (
-          
-                <Form />
-  
-      
+         
+          <Router>
+            <Suspense fallback = {<h2> loading...</h2>}>
+              <Switch>
+                  <Route exact path="/" component={Form}/>
+                  <Route exact path="/stats" component={Statistics}/>
+                  <Redirect to="/" />
+              </Switch>
+             </Suspense>
+          </Router>
+           
       )
     }
 

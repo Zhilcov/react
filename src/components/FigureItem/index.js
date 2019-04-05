@@ -16,7 +16,7 @@ class FigureItem extends React.Component{
                     if(a){
                         deleteFigure(figure.id)
                     }
-                    }}></i></td>        
+                    }}></i></td>  
             </tr>
         );
     }

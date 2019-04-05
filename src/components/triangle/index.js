@@ -49,8 +49,8 @@ class Triangle extends React.Component{
           return(
             <div className="figure"><p>Введите длины сторон</p>
                <input className="form-control" type="number" id ="a" placeholder="Сторона a"  onChange={this.handleChange}/>
-               <input className="form-control" type="number" id ="b" placeholder="Сторона b"  onChange={this.handleChange}/> <br/>
-               <input className="form-control" type="number" id ="c" placeholder="Сторона c"  onChange={this.handleChange}/> <br/>
+               <input className="form-control" type="number" id ="b" placeholder="Сторона b"  onChange={this.handleChange}/>
+               <input className="form-control" type="number" id ="c" placeholder="Сторона c"  onChange={this.handleChange}/> 
                <button className="btn btn-success" onClick={ this.addTriangle }>Добавить</button>
                
             </div>

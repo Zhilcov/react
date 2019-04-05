@@ -1,6 +1,6 @@
 import React from 'react';
 import Figures from "../Figures";
-
+import "./allFigures.css"
 class Circle extends React.Component{
 
     constructor(props) {
