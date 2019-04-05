@@ -11,7 +11,6 @@ class Form extends React.Component{
            <div className="row">
            <Input className = "Input"></Input>
             <Info className = "info" ></Info> 
-           {/*  <Stats className = "Stats"/> */}
            </div>
            </div>
         )

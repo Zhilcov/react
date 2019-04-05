@@ -7,7 +7,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-const saveState = (state) => {
+/* const saveState = (state) => {
     try {
        
         const serialisedState = JSON.stringify(state);
@@ -29,11 +29,11 @@ const loadState = () => {
         return undefined;
     }
 };
-const oldState = loadState();
-const store = createStore(reducer,oldState,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-store.subscribe(() => {
+const oldState = loadState(); */
+const store = createStore(reducer/* ,oldState */,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+/* store.subscribe(() => {
     saveState(store.getState());
-});
+}); */
 
 ReactDOM.render(
     <Provider store={store}>

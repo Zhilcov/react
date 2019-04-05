@@ -26,7 +26,7 @@ class Stats extends Component {
           });     
                
         return(
-         <div className="">
+         <div className="container">
             <Header></Header>
              <div className="col col-md-12 text-center">
                 <h1>Статистика</h1>

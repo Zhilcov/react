@@ -20,7 +20,7 @@ import {
       },
       {
         value : 23,
-        id : 2,
+        id : 3,
         label: "square"
       }
     ]

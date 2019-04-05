@@ -1,6 +1,5 @@
-
-import React, {lazy, Suspense} from 'react';
-import {Route, Switch, Redirect, }  from 'react-router-dom';
+import React, {lazy,Suspense } from 'react';
+import {Route, Switch, Redirect}  from 'react-router-dom';
 
 import {BrowserRouter as Router }  from 'react-router-dom';
 const Form = lazy(() => import('./components/form/'));
@@ -20,5 +19,5 @@ class App extends React.Component {
           </Router>
       )
     }
-}
-export default App
+} 
+export default App 
