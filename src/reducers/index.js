@@ -17,6 +17,11 @@ import {
           value : 23,
           id : 2,
           label: "circle"
+      },
+      {
+        value : 23,
+        id : 2,
+        label: "square"
       }
     ]
     function compare(a,b) {
