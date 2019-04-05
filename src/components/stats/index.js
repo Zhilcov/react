@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Pie } from 'react-chartjs';
 import TableForStats from "../tableForStats/tableForStats"
-
+import Header from "../header"
+import "./stats.css"
 class Stats extends Component {
     render(){
         var squares = 0;
@@ -25,7 +26,9 @@ class Stats extends Component {
           });     
                
         return(
-          <div className="col col-md-12 text-center">
+         <div className="">
+            <Header></Header>
+             <div className="col col-md-12 text-center">
                 <h1>Статистика</h1>
                 <div className="row">
                     <div className="col col-md-6">
@@ -43,14 +46,16 @@ class Stats extends Component {
                                 {value:triangle,label:"triangle"}]}
                         options={{
                             title:'cool pie chart',
-                            text:"coolest data"
+                            text:"coolest data",
+                            width:100,
+                            height:100
                         }}
+                        height={283} width={566}
                         />
                     </div>
                 </div>
-                
-               
           </div>
+         </div>
         );
     }
 }

@@ -9,7 +9,6 @@ const Statistics = lazy(() => import('./container/stats'));
 class App extends React.Component {    
     render(){
       return (
-         
           <Router>
             <Suspense fallback = {<h2> loading...</h2>}>
               <Switch>
@@ -19,10 +18,7 @@ class App extends React.Component {
               </Switch>
              </Suspense>
           </Router>
-           
       )
     }
-
-
 }
 export default App
