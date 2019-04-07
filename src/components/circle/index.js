@@ -1,42 +1,67 @@
 import React from 'react';
 import Figures from "../Figures";
 import "./allFigures.css"
+import {Form, InputGroup, Button } from "react-bootstrap"
+import { isBoolean } from 'util';
 class Circle extends React.Component{
 
     constructor(props) {
         super(props);
         this. state = {
-            a: 0
+            a: 0,
+            isValid:  ""
         };
         this.handleChange = this.handleChange.bind(this);
-        this.addCircle = this.addCircle.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
       }
     
       handleChange(event) {
-        this.setState({a: event.target.value});      
+        var value = event.target.value     
+        if(+value > 0){
+          this.setState({isValid:true})
+          this.setState({a:value });     
+        }else {
+          this.setState({isValid:false})
+        }
+        
       }
 
-      addCircle() {
-           var a = this.state.a; var obj ;
-        if (a>0){
-            obj = new Figures.Circle(a);
-            console.log(obj.calcArea());
-            this.props.addFigures("circle" , obj.calcArea());
-        }else{
-            alert("Радиус должен быть больше 0");
-        } 
+      handleSubmit(event) {
+        event.preventDefault();
+        event.stopPropagation();        
+        if(this.state.isValid === true){
+          var a = this.state.a; var obj ;
+          obj = new Figures.Circle(a);
+          this.props.addFigures("circle" , obj.calcArea()); 
+        }
       }
 
-      render(){
-          return(
-            <div className="figure"><p>Введите радиус</p>
-                <form action="" className="">
-                    <input className="form-control" type="number" placeholder="Радиус" onChange={this.handleChange}/>
-                </form>
-            <button className="btn btn-success " onClick={ this.addCircle }>Добавить</button>
-            </div>
-          )
-      }
+      render() {
+      const { isValid } = this.state;
+      var classtext = "";
+      if(typeof(isValid) === "boolean"){
+        isValid ? classtext = 'is-valid': classtext ='is-invalid'
+      }      
+      return (
+        <Form onSubmit={e => this.handleSubmit(e)}
+        >
+            <Form.Group  md="4">
+              <Form.Label>Введите радиус</Form.Label>
+              <Form.Control
+                className ={classtext}
+                required
+                type="number"
+                placeholder="Радиус"
+                defaultValue = ""
+                onChange = {this.handleChange}
+              />
+              <Form.Control.Feedback>Данные корректны</Form.Control.Feedback>
+              <Form.Control.Feedback type ="invalid">Радиус должен быть больше нуля</Form.Control.Feedback>
+            </Form.Group>         
+          <Button type="submit">Добавить</Button>
+        </Form>
+      );
+    }
 }
 
 export default Circle

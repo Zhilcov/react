@@ -9,7 +9,6 @@ class Header extends React.Component {
             <Link className="nav-link" to="/"> На главную </Link>
              <Link className="nav-link" to="/stats"> Статистика </Link> 
             </Navbar>
-            
         )
     }
 }

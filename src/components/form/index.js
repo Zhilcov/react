@@ -10,7 +10,8 @@ class Form extends React.Component{
             <Header></Header>  
            <div className="row">
            <Input className = "Input"></Input>
-            <Info className = "info" ></Info> 
+            <Info className = "info" ></Info>
+           
            </div>
            </div>
         )
