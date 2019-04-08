@@ -58,7 +58,7 @@ class Square extends React.Component{
                 <Form.Control.Feedback>Данные корректны</Form.Control.Feedback>
                 <Form.Control.Feedback type ="invalid">Радиус должен быть больше нуля</Form.Control.Feedback>
               </Form.Group>         
-            <Button type="submit">Добавить</Button>
+              <Button type="submit" disabled = {isValid ? false : true}>Добавить</Button>
           </Form>
         )
       }

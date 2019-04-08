@@ -94,8 +94,8 @@ class Rectangle extends React.Component{
                 {bIsValid ? "Данные корректны" : "Длинна стороны должна быть больше нуля"}
                 </Form.Control.Feedback>
                 </Form.Group> 
-            <Button type="submit">Добавить</Button>
-          </Form>
+                <Button type="submit" disabled = {aIsValid && bIsValid ? false : true}>Добавить</Button>
+           </Form>
         )
       }
        

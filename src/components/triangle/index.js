@@ -59,8 +59,10 @@ class Triangle extends React.Component{
       handleSubmit(event) {
         event.preventDefault();
         event.stopPropagation();  
-           var {a,b,c} = this.state     
-           if (a + b >= c && a + c >= b && b + c >= a){
+           var a = parseInt(this.state.a),
+               b = parseInt(this.state.b),
+               c = parseInt(this.state.c)     
+           if ((a < b+c) & (b < a+c) & (c < a+b)){
             var obj = new Figures.Triangle(+a,+b,+c);  
             this.props.addFigures("triangle" , obj.calcArea());
             this.setState({isSet:true});
@@ -127,7 +129,7 @@ class Triangle extends React.Component{
                   {cIsValid ? "Данные корректны" : "Длинна стороны должна быть больше нуля"}
                   </Form.Control.Feedback>
                 </Form.Group>                      
-            <Button type="submit">Добавить</Button>
+              <Button type="submit" disabled = {aIsValid && bIsValid && cIsValid ? false : true}>Добавить</Button>
           </Form>
         )
       }

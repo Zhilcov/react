@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import Stats from '../../components/stats'
 
 const mapStateToProps = state => ({    
-    figures: state
+    figures: state.info
 })
   
 const mapDispatchToProps = dispatch => ({

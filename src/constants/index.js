@@ -1,2 +1,5 @@
 export const ADD_FIGURE = 'ADD_FIGURE'
 export const DELETE_FIGURE = 'DELETE_FIGURE'
+export const SORT_BY_VALUE = 'SORT_BY_VALUE'
+export const SORT_BY_NAME = 'SORT_BY_NAME'
+export const SORT_DEFAULT = 'SORT_DEFAULT'
