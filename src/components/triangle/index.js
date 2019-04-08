@@ -45,7 +45,7 @@ class Triangle extends React.Component{
             case "c":
               valueC = event.target.value
               if( +valueC > 0 ){
-                this.setState({c: valueB});
+                this.setState({c: valueC});
                 this.setState({cIsValid:true})  
               }else {
                 this.setState({cIsValid:false})
@@ -59,16 +59,17 @@ class Triangle extends React.Component{
       handleSubmit(event) {
         event.preventDefault();
         event.stopPropagation();  
-           var {a,b,c} = this.state
-           var obj;
-           if (a + b >= c && a + c >= b && b + c >= a){
-            obj = new Figures.Triangle(+a,+b,+c);  
+           var {a,b,c} = this.state     
+           if (((b+c-a) > 0) && ((a+c-b) > 0) && ((a+b-c) > 0)){
+            var obj = new Figures.Triangle(+a,+b,+c);  
             this.props.addFigures("triangle" , obj.calcArea());
             this.setState({isSet:true});
            }else this.setState({isSet:false});
               
       }
-      
+      isset = (value) => {
+        this.setState({ isSet: value })        
+      }
       addClassTextToInput(isValid){
         var classtext
         if(typeof(isValid) === "boolean"){
@@ -83,47 +84,49 @@ class Triangle extends React.Component{
           >              
                
               <Form.Group  md="4">              
-              {this.state.isSet ? " " : <Alert > </Alert>}
-              <Form.Label>Введите координаты</Form.Label>  
-                <Form.Control
-                  className ={this.addClassTextToInput(aIsValid)}
-                  required
-                  type="number"
-                  placeholder="Сторона a"
-                  defaultValue = ""
-                  onChange = {this.handleChange}
-                  id = "a"
-                />
-                <Form.Control.Feedback type = {aIsValid ? "valid" : "invalid"}>
-                {aIsValid ? "Данные корректны" : "Длинна стороны должна быть больше нуля"}
-                </Form.Control.Feedback>
-              
-                <Form.Control
-                  className ={this.addClassTextToInput(bIsValid)}
-                  required
-                  type="number"
-                  placeholder="Сторона b"
-                  defaultValue = ""
-                  onChange = {this.handleChange}
-                  id = "b"
-                />
-                <Form.Control.Feedback type = {bIsValid ? "valid" : "invalid"}>
-                {bIsValid ? "Данные корректны" : "Длинна стороны должна быть больше нуля"}
-                </Form.Control.Feedback>
-
-                <Form.Control
-                  className ={this.addClassTextToInput(cIsValid)}
-                  required
-                  type="number"
-                  placeholder="Сторона c"
-                  defaultValue = ""
-                  onChange = {this.handleChange}
-                  id = "c"
-                />
-                <Form.Control.Feedback type = {cIsValid ? "valid" : "invalid"}>
-                {cIsValid ? "Данные корректны" : "Длинна стороны должна быть больше нуля"}
-                </Form.Control.Feedback>
-               </Form.Group>         
+                {this.state.isSet ? " " : <Alert isset = {this.isset}> </Alert>}
+                <Form.Label>Введите координаты</Form.Label>  
+                  <Form.Control
+                    className ={this.addClassTextToInput(aIsValid)}
+                    required
+                    type="number"
+                    placeholder="Сторона a"
+                    defaultValue = ""
+                    onChange = {this.handleChange}
+                    id = "a"
+                  />
+                  <Form.Control.Feedback type = {aIsValid ? "valid" : "invalid"}>
+                  {aIsValid ? "Данные корректны" : "Длинна стороны должна быть больше нуля"}
+                  </Form.Control.Feedback>
+                </Form.Group> 
+                <Form.Group  md="4">
+                  <Form.Control
+                    className ={this.addClassTextToInput(bIsValid)}
+                    required
+                    type="number"
+                    placeholder="Сторона b"
+                    defaultValue = ""
+                    onChange = {this.handleChange}
+                    id = "b"
+                  />
+                  <Form.Control.Feedback type = {bIsValid ? "valid" : "invalid"}>
+                  {bIsValid ? "Данные корректны" : "Длинна стороны должна быть больше нуля"}
+                  </Form.Control.Feedback>
+                </Form.Group> 
+                <Form.Group  md="4">               
+                  <Form.Control
+                    className ={this.addClassTextToInput(cIsValid)}
+                    required
+                    type="number"
+                    placeholder="Сторона c"
+                    defaultValue = ""
+                    onChange = {this.handleChange}
+                    id = "c"
+                  />
+                  <Form.Control.Feedback type = {cIsValid ? "valid" : "invalid"}>
+                  {cIsValid ? "Данные корректны" : "Длинна стороны должна быть больше нуля"}
+                  </Form.Control.Feedback>
+                </Form.Group>                      
             <Button type="submit">Добавить</Button>
           </Form>
         )

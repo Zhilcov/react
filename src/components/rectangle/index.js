@@ -79,7 +79,8 @@ class Rectangle extends React.Component{
                 <Form.Control.Feedback type = {aIsValid ? "valid" : "invalid"}>
                 {aIsValid ? "Данные корректны" : "Длинна стороны должна быть больше нуля"}
                 </Form.Control.Feedback>
-              
+                </Form.Group> 
+                <Form.Group  md="4">    
                 <Form.Control
                   className ={classtextB}
                   required
@@ -92,7 +93,7 @@ class Rectangle extends React.Component{
                 <Form.Control.Feedback type = {bIsValid ? "valid" : "invalid"}>
                 {bIsValid ? "Данные корректны" : "Длинна стороны должна быть больше нуля"}
                 </Form.Control.Feedback>
-               </Form.Group>         
+                </Form.Group> 
             <Button type="submit">Добавить</Button>
           </Form>
         )

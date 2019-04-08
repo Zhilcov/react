@@ -6,18 +6,24 @@ class AlertDismissible extends React.Component {
       super(props);
   
       this.state = { show: true };
+      this.handleHide = this.handleHide.bind(this);
     }
-  
+    
+    handleHide(){
+      this.setState({ show: false })
+    }
+
     render() {
-      const handleHide = () => {
-          this.setState({ show: false })          
-        };
+      
       return (
         <>
           <Alert show={this.state.show} variant="danger">
           Треугольник не существует
             <div className="d-flex justify-content-end">
-              <Button onClick={handleHide} variant="outline-danger">Понятно</Button>
+              <Button onClick={() => { 
+                this.props.isset(true)
+                this.handleHide()
+              }} variant="outline-danger">Понятно</Button>
             </div>
           </Alert>
         </>
