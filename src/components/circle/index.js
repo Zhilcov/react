@@ -2,7 +2,7 @@ import React from 'react';
 import Figures from "../Figures";
 import "./allFigures.css"
 import {Form, InputGroup, Button } from "react-bootstrap"
-import { isBoolean } from 'util';
+
 class Circle extends React.Component{
 
     constructor(props) {
@@ -60,7 +60,7 @@ class Circle extends React.Component{
             </Form.Group>         
           <Button type="submit">Добавить</Button>
         </Form>
-      );
+      )
     }
 }
 
