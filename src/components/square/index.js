@@ -1,42 +1,66 @@
 import React from 'react';
 import Figures from "../Figures";
+import {Form, InputGroup, Button } from "react-bootstrap"
 
 class Square extends React.Component{
 
     constructor(props) {
         super(props);
         this. state = {
-            a: 0
+            a: 0,
+            isValid:''
         };
         this.handleChange = this.handleChange.bind(this);
-        this.addSquare = this.addSquare.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
       }
     
      
       handleChange(event) {
-        this.setState({a: event.target.value});      
+        var value = event.target.value     
+        if(+value > 0){
+          this.setState({isValid:true})
+          this.setState({a:value });     
+        }else {
+          this.setState({isValid:false})
+        }
+           
       }
 
-     addSquare() {
-           var a = this.state.a; var obj ;
-        if (a>0){
-          obj = new Figures.Figure(a);
+      handleSubmit(event) {
+        event.preventDefault();
+        event.stopPropagation();        
+        if(this.state.isValid === true){
+           var a = this.state.a; 
+           var obj = new Figures.Figure(a);
           this.props.addFigures("square" , obj.calcArea()); 
-        }else{
-            alert("Cторона должна быть больше 0");
-        } 
-        
+        }
       }
 
       render(){
-          return(
-            <div className="figure"><p>Введите длину стороны</p>
-            <form action="" className="">
-                <input className="form-control" type="number" placeholder="Сторона a" onChange={this.handleChange}/>
-            </form>
-            <button className="btn btn-success " onClick={ this.addSquare }>Добавить</button>
-            </div>
-          )
+        const { isValid } = this.state;
+        var classtext = "";
+        if(typeof(isValid) === "boolean"){
+          isValid ? classtext = 'is-valid': classtext ='is-invalid'
+        }      
+        return (
+          <Form onSubmit={e => this.handleSubmit(e)}
+          >
+              <Form.Group  md="4">
+                <Form.Label>Введите длинну стороны</Form.Label>
+                <Form.Control
+                  className ={classtext}
+                  required
+                  type="number"
+                  placeholder="Сторона"
+                  defaultValue = ""
+                  onChange = {this.handleChange}
+                />
+                <Form.Control.Feedback>Данные корректны</Form.Control.Feedback>
+                <Form.Control.Feedback type ="invalid">Радиус должен быть больше нуля</Form.Control.Feedback>
+              </Form.Group>         
+            <Button type="submit">Добавить</Button>
+          </Form>
+        )
       }
 }
 
