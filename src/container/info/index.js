@@ -4,7 +4,10 @@ import { bindActionCreators } from 'redux'
 import Info from '../../components/info'
 
 const mapStateToProps = state => ({    
-    figures: state
+    figures: state,
+    value: state.value,
+    id: state.id,
+    lable : state.lable
   })
   
 const mapDispatchToProps = dispatch => ({
