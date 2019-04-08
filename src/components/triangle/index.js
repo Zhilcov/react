@@ -60,7 +60,7 @@ class Triangle extends React.Component{
         event.preventDefault();
         event.stopPropagation();  
            var {a,b,c} = this.state     
-           if (((b+c-a) > 0) && ((a+c-b) > 0) && ((a+b-c) > 0)){
+           if (a + b >= c && a + c >= b && b + c >= a){
             var obj = new Figures.Triangle(+a,+b,+c);  
             this.props.addFigures("triangle" , obj.calcArea());
             this.setState({isSet:true});

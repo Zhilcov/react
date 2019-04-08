@@ -42,6 +42,8 @@ class Circle extends React.Component{
       if(typeof(isValid) === "boolean"){
         isValid ? classtext = 'is-valid': classtext ='is-invalid'
       }      
+      console.log(this.props);
+      
       return (
         <Form onSubmit={e => this.handleSubmit(e)}
         >
