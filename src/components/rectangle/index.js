@@ -54,13 +54,14 @@ class Rectangle extends React.Component{
         
       render(){
         const { aIsValid,bIsValid } = this.state;
-        var classtextA ,classtextB = "";
+        var classtextA = "",classtextB = "";
         if(typeof(aIsValid) === "boolean"){
           aIsValid ? classtextA = 'is-valid': classtextA ='is-invalid'
         }
         if(typeof(bIsValid) === "boolean"){
           bIsValid ? classtextB = 'is-valid': classtextB ='is-invalid'
         }       
+        
         return (
           <Form onSubmit={e => this.handleSubmit(e)}
           >
