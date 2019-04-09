@@ -53,7 +53,7 @@ class Info extends React.Component {
                             <th id ="name" onClick = { (e) => {
                                 this.handleChange(e)
                                 actions.sortByName(lable)
-                            }} scope="col">Фигура {this.state.hideName ? " " : lable ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}</th>
+                            }} scope="col">Фигура {this.state.hideName ? " " : lable ? <i className="fas fa-chevron-down"></i>  : <i className="fas fa-chevron-up"></i>}</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
