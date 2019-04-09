@@ -7,3 +7,12 @@ h1 {
 i , th{
     cursor: pointer;
 }
+ #id {
+    width: 19%;
+}
+#value {
+    width: 37%;
+}
+#name {
+    width: 37%;
+}

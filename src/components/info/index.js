@@ -6,7 +6,32 @@ class Info extends React.Component {
     
     constructor(props) {
         super(props);
-      }
+        this.state = {
+            hideName: true,
+            hideValue: true,
+            hideId: false
+        };
+        this.handleChange = this.handleChange.bind(this);    
+    }
+
+    handleChange(e){
+        var id = e.target.id;
+        console.log(id);
+        
+        switch (id) {
+            case "id":
+                this.setState({hideName: true, hideValue: true, hideId : false});
+                break;
+            case "value":
+                this.setState({hideName: true, hideId: true, hideValue:false});
+                break;
+            case "name":
+                this.setState({hideValue: true, hideId: true,hideName :false});
+                break;
+            default:
+                break;
+        }
+    }
 
     render(){       
         const {figures, actions , value , lable, id} = this.props 
@@ -17,15 +42,18 @@ class Info extends React.Component {
                     <table id="grid" className="table">
                         <thead className="thead-light">
                         <tr>
-                            <th id ="1" onClick = { () =>{
+                            <th id ="id" onClick = { (e) =>{
+                                this.handleChange(e)
                                 actions.sort(id)
-                            } } scope="col">#  {id ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}</th>
-                            <th id ="2" onClick = {() => {
+                            } } scope="col">#  {this.state.hideId ? " " :  id ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}</th>
+                            <th id ="value" onClick = {(e) => {
+                                this.handleChange(e)
                                 actions.sortByValue(value )
-                            }} scope="col">Площадь {value ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}</th>
-                            <th id ="3" onClick = { () => {
+                            }} scope="col">Площадь { this.state.hideValue ? " " :  value ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}</th>
+                            <th id ="name" onClick = { (e) => {
+                                this.handleChange(e)
                                 actions.sortByName(lable)
-                            }} scope="col">Фигура {lable ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}</th>
+                            }} scope="col">Фигура {this.state.hideName ? " " : lable ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
