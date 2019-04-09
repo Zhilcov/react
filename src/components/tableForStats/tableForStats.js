@@ -9,16 +9,13 @@ class tableForStats extends React.Component{
     }
 
     render(){
-            var figures = this.props 
+            var {squares, rectangle, circle, triangle} = this.props 
+            var figures = this.props            
             var allArea=0;
             for (var key in figures) {
                 allArea += figures[key];
             }
-            let items = [];
-            for (var key in figures) {
-                items.push(<Item key={figures} figure = {key} area = {this.caclPercent(allArea,figures[key])}/>)
-            };
-
+            
         return(
             <div className ="col col-md-12">
                 <Table striped bordered hover>
@@ -29,10 +26,10 @@ class tableForStats extends React.Component{
                         </tr>
                     </thead>
                     <tbody>
-                        {items[0]}
-                        {items[1]}
-                        {items[2]}
-                        {items[3]}
+                    <Item key={1} figure = "squares"  area = {this.caclPercent(allArea,squares)}/>
+                    <Item key={2} figure = "rectangle" area = {this.caclPercent(allArea,rectangle)}/>
+                    <Item key={3} figure = "circle" area = {this.caclPercent(allArea,circle)}/>
+                    <Item key={4} figure = "triangle" area = {this.caclPercent(allArea,triangle)}/>
                     </tbody>
                 </Table>
             </div>

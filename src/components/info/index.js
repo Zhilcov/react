@@ -16,7 +16,7 @@ class Info extends React.Component {
 
     handleChange(e){
         var id = e.target.id;
-        console.log(id);
+       
         
         switch (id) {
             case "id":
@@ -33,9 +33,9 @@ class Info extends React.Component {
         }
     }
 
-    render(){       
-        const {figures, actions , value , lable, id} = this.props 
-                                                                           
+    render(){    
+        const {figures, actions , value , lable, id} = this.props        
+                                                                            
         return(
             <div className ="col col-md-12">
                     <h1 className ="info">Информация</h1>
@@ -60,8 +60,7 @@ class Info extends React.Component {
                         <tbody>
                         {    
                             figures.info.map(figureItem => 
-                            <FigureItem key={figureItem.id} figure={figureItem} {...actions}/>
-                            )
+                            <FigureItem key={figureItem.id} figure={figureItem} {...actions}/>)
                         } 
                         </tbody>
                     </table>

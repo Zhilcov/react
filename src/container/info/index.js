@@ -3,11 +3,12 @@ import * as TodoActions from '../../actions'
 import { bindActionCreators } from 'redux'
 import Info from '../../components/info'
 
-const mapStateToProps = state => ({    
-    figures: state,
-    value: state.value,
-    id: state.id,
-    lable : state.lable
+const mapStateToProps = (state,ownProps) => ({    
+    figures: state.todos,
+    value: state.todos.value,
+    id: state.todos.id,
+    lable : state.todos.lable,
+    ownProps
   })
   
 const mapDispatchToProps = dispatch => ({

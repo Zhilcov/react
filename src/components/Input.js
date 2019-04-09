@@ -6,6 +6,10 @@ import Square from "./square"
 import Rectangle from "./rectangle"
 import Triangle from "./triangle"
 import "./input.css"
+import { createBrowserHistory } from 'history';
+ 
+import Statistics from '../container/stats'
+const history = createBrowserHistory();
 
 
 class Input extends React.Component{
@@ -20,26 +24,28 @@ class Input extends React.Component{
         })
     }
     
+    
     render(){
         const {addFigure} = this.props        
         return (
-            <Router>
+            <Router history = {history}>
                 <div className="col col-md-12">
                    <div className="row input">
                         <div className="col col-md-5 offset-1">
-                                <h1>Ввод данных</h1>
-                                <DropdownButton id="dropdown-item-button" title="Выберите фигуру">
-                                <Link to="/home/circle"><Dropdown.Item as="button">Круг</Dropdown.Item></Link>
-                                <Link to="/home/square"><Dropdown.Item as="button">Квадрат</Dropdown.Item></Link>
-                                <Link to="/home/rectangle"><Dropdown.Item as="button">Прямоугольник</Dropdown.Item></Link>
-                                <Link to="/home/triangle"><Dropdown.Item as="button">Треугольник</Dropdown.Item></Link>
-                                </DropdownButton>
+                            <h1>Ввод данных</h1>
+                            <DropdownButton id="dropdown-item-button" title="Выберите фигуру">
+                                <Link to="/circle"><Dropdown.Item as="button">Круг</Dropdown.Item></Link>
+                                <Link to="/square"><Dropdown.Item as="button">Квадрат</Dropdown.Item></Link>
+                                <Link to="/rectangle"><Dropdown.Item as="button">Прямоугольник</Dropdown.Item></Link>
+                                <Link to="/triangle"><Dropdown.Item as="button">Треугольник</Dropdown.Item></Link>
+                            </DropdownButton>
                         </div>
                         <div className="col col-md-4">
-                                <Route exact path="/home/circle" render={()=><Circle addFigures={addFigure}/>} />
-                                <Route exact path="/home/square" render={()=><Square addFigures={addFigure}/>} />
-                                <Route exact path="/home/rectangle" render={()=><Rectangle addFigures={addFigure}/>} />
-                                <Route exact path="/home/triangle" render={()=><Triangle addFigures={addFigure}/>} />                      
+                            <Route  path="/circle" render={()=><Circle addFigures={addFigure}/>} />
+                            <Route  path="/square" render={()=><Square addFigures={addFigure}/>} />
+                            <Route  path="/rectangle" render={()=><Rectangle addFigures={addFigure}/>} />
+                            <Route  path="/triangle" render={()=><Triangle addFigures={addFigure}/>} />
+                                            
                         </div>
                    </div>
                 </div>

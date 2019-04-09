@@ -7,12 +7,11 @@ class Form extends React.Component{
     render(){
         return (
             <div className="container">   
-            <Header></Header>  
-           <div className="row">
-           <Input className = "Input"></Input>
-            <Info className = "info" ></Info>
-           
-           </div>
+                <Header></Header>  
+                <div className="row">
+                    <Input className = "Input"></Input>
+                    <Info className = "info" ></Info>
+                </div>
            </div>
         )
     }
