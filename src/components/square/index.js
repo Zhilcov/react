@@ -1,14 +1,15 @@
 import React from 'react';
 import Figures from "../Figures";
-import {Form, InputGroup, Button } from "react-bootstrap"
-
+import {Form,  Button } from "react-bootstrap"
+import { Redirect}  from 'react-router-dom';
 class Square extends React.Component{
 
     constructor(props) {
         super(props);
-        this. state = {
+        this.state = {
             a: 0,
-            isValid:''
+            isValid:'',
+            redirectToNewPage: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,22 +29,29 @@ class Square extends React.Component{
 
       handleSubmit(event,id) {
         event.preventDefault();
-        event.stopPropagation();        
+        event.stopPropagation();
+        var a = this.state.a; 
+        var obj = new Figures.Figure(a);        
         if(this.state.isValid === true){
           if(id === null){
-            var a = this.state.a; 
-            var obj = new Figures.Figure(a);
             this.props.addFigures("square" , obj.calcArea()); 
+            this.setState({ redirectToNewPage: true })
           }else{
-            var a = this.state.a; 
-            var obj = new Figures.Figure(a);
-            this.props.editFigures(id , obj.calcArea()); 
+            this.props.editFigures(id , obj.calcArea());
+            this.setState({ redirectToNewPage: true }) 
           }
            
         }
       }
 
       render(){
+        if (this.state.redirectToNewPage) {
+          this.setState({ redirectToNewPage: false })
+          this.setState({ isValid:  ""});
+          return (
+            <Redirect to="/square"/>
+            )
+        }
         const { isValid } = this.state;
         var classtext = "";
         if(typeof(isValid) === "boolean"){

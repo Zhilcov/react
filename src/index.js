@@ -12,6 +12,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import Header from "./components/header"
 const store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
+
 const history = syncHistoryWithStore(createBrowserHistory(), store);
 ReactDOM.render(
     <Provider store={store}>

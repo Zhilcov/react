@@ -1,16 +1,19 @@
 import React from 'react';
 import Figures from "../Figures";
-import {Form, InputGroup, Button } from "react-bootstrap"
+import {Form, Button } from "react-bootstrap"
+import { Redirect}  from 'react-router-dom';
+
 class Rectangle extends React.Component{
 
     constructor(props) {
         super(props);
         
-        this. state = {
+        this.state = {
             a: 0,
             b: 0,
             aIsValid: '',
-            bIsValid: ''
+            bIsValid: '',
+            redirectToNewPage: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);     
@@ -42,18 +45,17 @@ class Rectangle extends React.Component{
       handleSubmit(event,id) {
         const { aIsValid,bIsValid } = this.state;
             event.preventDefault();
-            event.stopPropagation();        
+            event.stopPropagation();
+            var a = this.state.a; 
+            var b = this.state.b;
+            var obj =  new Figures.Rectangle(a,b);        
             if(aIsValid && bIsValid){
               if(id === null){
-                var a = this.state.a; 
-                var b = this.state.b;
-                var obj =  new Figures.Rectangle(a,b);
                 this.props.addFigures("rectangle" , obj.calcArea()); 
+                this.setState({ redirectToNewPage: true })
               }else{
-                var a = this.state.a; 
-                var b = this.state.b;
-                var obj =  new Figures.Rectangle(a,b);
                 this.props.editFigures(id, obj.calcArea() );
+                this.setState({ redirectToNewPage: true })
               }
               
             }
@@ -61,6 +63,13 @@ class Rectangle extends React.Component{
             
         
       render(){
+        if (this.state.redirectToNewPage) {
+          this.setState({ redirectToNewPage: false })
+          this.setState({aIsValid:  "",bIsValid:  ""});
+          return (
+            <Redirect to="/rectangle"/>
+            )
+        }
         const { aIsValid,bIsValid } = this.state;
         var classtextA = "",classtextB = "";
         if(typeof(aIsValid) === "boolean"){

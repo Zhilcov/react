@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button, Modal} from "react-bootstrap"
-import {Route, Switch, Redirect, BrowserRouter as Router, Link}  from 'react-router-dom';
+import { Link}  from 'react-router-dom';
 
 class FigureItem extends React.Component{
     constructor(props, context) {
@@ -19,7 +19,7 @@ class FigureItem extends React.Component{
                 <th scope="row">{figure.id}</th>
                 <td>{figure.value}</td>
                 <td>{figure.label}</td>
-                <td><Link to ={{ pathname: `/${figure.label}`, search: `?id=${figure.id}` }}><i class="fas fa-edit"></i></Link></td>
+                <td><Link to ={{ pathname: `/${figure.label}`, search: `?id=${figure.id}` }}><i className="fas fa-edit"></i></Link></td>
                 <td><i className="fas fa-trash-alt"  onClick={() => {
                     this.setState({ smShow: true })
                     }}></i></td>
@@ -29,14 +29,14 @@ class FigureItem extends React.Component{
                         onHide={smClose}
                         aria-labelledby="example-modal-sizes-title-sm"
                     >
-                        <Modal.Header closeButton>
-                        <Modal.Title id="example-modal-sizes-title-sm">
-                            Удалить?
-                        </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Button className =  "btn btn-danger" onClick={()=>{deleteFigure(figure.id)}}>Удалить</Button>
-                        </Modal.Body>
+                    <Modal.Header closeButton>
+                    <Modal.Title id="example-modal-sizes-title-sm">
+                        Удалить?
+                    </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Button className =  "btn btn-danger" onClick={()=>{deleteFigure(figure.id)}}>Удалить</Button>
+                   </Modal.Body>
                     </Modal>  
             </tr>
         );

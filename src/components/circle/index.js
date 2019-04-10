@@ -1,15 +1,16 @@
 import React from 'react';
 import Figures from "../Figures";
 import "./allFigures.css"
-import {Form, InputGroup, Button } from "react-bootstrap"
-
+import {Form, Button } from "react-bootstrap"
+import { Redirect}  from 'react-router-dom';
 class Circle extends React.Component{
 
     constructor(props) {
         super(props);
-        this. state = {
+        this.state = {
             a: 0,
-            isValid:  ""
+            isValid:  "",
+            redirectToNewPage: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,22 +29,30 @@ class Circle extends React.Component{
 
       handleSubmit(event,id) {
         event.preventDefault();
-        event.stopPropagation();        
+        event.stopPropagation();                
         if(this.state.isValid === true){
-          console.log(id);
             if(id === null){
-              var a = this.state.a; var obj ;
+              let a = this.state.a; let obj ;
               obj = new Figures.Circle(a);
               this.props.addFigures("circle" , obj.calcArea()); 
+              this.setState({ redirectToNewPage: true })
             }else{
-              var a = this.state.a; var obj ;
+              let a = this.state.a; let obj ;
               obj = new Figures.Circle(a);
               this.props.editFigures(id,obj.calcArea());
+              this.setState({ redirectToNewPage: true })
             }
         }
       }
 
       render() {
+        if (this.state.redirectToNewPage) {
+          this.setState({ redirectToNewPage: false })
+          this.setState({isValid:  ""});
+          return (
+            <Redirect to="/circle"/>
+            )
+        }
       const { isValid } = this.state;
       var classtext = "";
       if(typeof(isValid) === "boolean"){
@@ -62,7 +71,6 @@ class Circle extends React.Component{
                 required
                 type="number"
                 placeholder="Радиус"
-                defaultValue = ""
                 onChange = {this.handleChange}
               />
               <Form.Control.Feedback>Данные корректны</Form.Control.Feedback>

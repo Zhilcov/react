@@ -2,18 +2,22 @@ import React from 'react';
 import Figures from "../Figures";
 import {Form, Button } from "react-bootstrap"
 import Alert from "../alert"
+import { Redirect}  from 'react-router-dom';
+
+
 class Triangle extends React.Component{
 
     constructor(props) {
         super(props);
-        this. state = {
+        this.state = {
             a: 0,
             b: 0,
             c: 0,
             aIsValid: '',
             bIsValid: '',
             cIsValid: '',
-            isSet : true
+            isSet : true,
+            redirectToNewPage: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -61,15 +65,16 @@ class Triangle extends React.Component{
         event.stopPropagation();  
            var a = parseInt(this.state.a),
                b = parseInt(this.state.b),
-               c = parseInt(this.state.c)     
+               c = parseInt(this.state.c),  
+               obj = new Figures.Triangle(+a,+b,+c);    
            if ((a < b+c) & (b < a+c) & (c < a+b)){
               if (id === null){
-                var obj = new Figures.Triangle(+a,+b,+c);  
                 this.props.addFigures("triangle" , obj.calcArea());
                 this.setState({isSet:true});
+                this.setState({ redirectToNewPage: true })
               }else{
-                var obj = new Figures.Triangle(+a,+b,+c);  
                 this.props.editFigures(id , obj.calcArea());
+                this.setState({ redirectToNewPage: true })
               }
            }else this.setState({isSet:false});
               
@@ -85,6 +90,13 @@ class Triangle extends React.Component{
         }else return " "
       }
       render(){
+        if (this.state.redirectToNewPage) {
+          this.setState({ redirectToNewPage: false })
+          this.setState({aIsValid:  "",bIsValid:  "", cIsValid : ""});
+          return (
+            <Redirect to="/triangle"/>
+            )
+        }
         const { aIsValid,bIsValid,cIsValid } = this.state;
         var id = new URLSearchParams(this.props.location.search).get("id")           
         return (

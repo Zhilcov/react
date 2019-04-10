@@ -1,5 +1,5 @@
-import React, {lazy,Suspense } from 'react';
-import {Route, Switch, Redirect, BrowserRouter as Router, Link}  from 'react-router-dom';
+import React from 'react';
+import {Route, BrowserRouter as Router, Link}  from 'react-router-dom';
 import {DropdownButton , Dropdown}  from "react-bootstrap" 
 import Circle from './circle'
 import Square from "./square"

@@ -1,6 +1,6 @@
 import React from 'react';
 import Statistics from './container/stats'
-import {Route, Switch, Redirect, Router }  from 'react-router-dom';
+import {Route, Switch, Redirect }  from 'react-router-dom';
 import Form from "./components/form";
 
 class App extends React.Component {    

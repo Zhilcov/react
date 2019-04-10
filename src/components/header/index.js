@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from "react-bootstrap/Navbar"
-import Nav from "react-bootstrap/Nav"
 import { Link } from 'react-router-dom';
 class Header extends React.Component {
     render(){

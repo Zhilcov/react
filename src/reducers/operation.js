@@ -87,7 +87,6 @@ import {
         } 
       case EDIT_FIGURE:
         { 
-          console.log("fd", action.id, action.value );
           return Object.assign({}, state, {info:state.info.map(figure => {
             if (figure.id == action.id) {
               return {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Pie } from 'react-chartjs';
 import TableForStats from "../tableForStats/tableForStats"
-import Header from "../header"
 import "./stats.css"
 class Stats extends Component {
     render(){
