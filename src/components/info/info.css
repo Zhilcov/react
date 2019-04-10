@@ -4,15 +4,21 @@
 h1 {
     font-family: 'Times New Roman', Times, serif
 }
-i , th{
+.fa-trash-alt{
     cursor: pointer;
+}
+.fa-edit{
+    color : #000
 }
  #id {
     width: 19%;
+    cursor: pointer;
 }
 #value {
     width: 37%;
+    cursor: pointer;
 }
 #name {
     width: 37%;
+    cursor: pointer;
 }

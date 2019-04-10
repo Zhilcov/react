@@ -55,6 +55,7 @@ class Info extends React.Component {
                                 actions.sortByName(lable)
                             }} scope="col">Фигура {this.state.hideName ? " " : lable ? <i className="fas fa-chevron-down"></i>  : <i className="fas fa-chevron-up"></i>}</th>
                             <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>

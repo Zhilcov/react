@@ -39,15 +39,23 @@ class Rectangle extends React.Component{
           }
       }
       
-      handleSubmit(event) {
+      handleSubmit(event,id) {
         const { aIsValid,bIsValid } = this.state;
             event.preventDefault();
             event.stopPropagation();        
             if(aIsValid && bIsValid){
-              var a = this.state.a; 
-              var b = this.state.b;
-              var obj =  new Figures.Rectangle(a,b);
-              this.props.addFigures("rectangle" , obj.calcArea()); 
+              if(id === null){
+                var a = this.state.a; 
+                var b = this.state.b;
+                var obj =  new Figures.Rectangle(a,b);
+                this.props.addFigures("rectangle" , obj.calcArea()); 
+              }else{
+                var a = this.state.a; 
+                var b = this.state.b;
+                var obj =  new Figures.Rectangle(a,b);
+                this.props.editFigures(id, obj.calcArea() );
+              }
+              
             }
       }
             
@@ -61,9 +69,9 @@ class Rectangle extends React.Component{
         if(typeof(bIsValid) === "boolean"){
           bIsValid ? classtextB = 'is-valid': classtextB ='is-invalid'
         }       
-        
+        var id = new URLSearchParams(this.props.location.search).get("id")
         return (
-          <Form onSubmit={e => this.handleSubmit(e)}
+          <Form onSubmit={e => this.handleSubmit(e,id)}
           >
               <Form.Group  md="4">
                 <Form.Label>Введите координаты</Form.Label>
@@ -94,7 +102,7 @@ class Rectangle extends React.Component{
                 {bIsValid ? "Данные корректны" : "Длинна стороны должна быть больше нуля"}
                 </Form.Control.Feedback>
                 </Form.Group> 
-                <Button type="submit" disabled = {aIsValid && bIsValid ? false : true}>Добавить</Button>
+                <Button type="submit" disabled = {aIsValid && bIsValid ? false : true}>{id ?  "Изменить" : "Добавить"  }</Button>
            </Form>
         )
       }

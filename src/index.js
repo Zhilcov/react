@@ -6,11 +6,10 @@ import reducer from './reducers'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Statistics from './container/stats'
 import { createBrowserHistory } from 'history';
-import {Route, Switch, Redirect, Router }  from 'react-router-dom';
+import {Router }  from 'react-router-dom';
 import { syncHistoryWithStore } from 'react-router-redux';
-
+import Header from "./components/header"
 const store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 const history = syncHistoryWithStore(createBrowserHistory(), store);
@@ -18,14 +17,10 @@ ReactDOM.render(
     <Provider store={store}>
       <Router history={history}>
               <Suspense fallback = {<h2> loading...</h2>}>
-                <Switch>
-                  <Route exact path="/" component={App}/> 
-                  <Route  path="/stats" component={Statistics}/> 
-                  <Route path = "/piw"  render={()=><input/>}/>
-                  <Redirect to = "/"></Redirect>
-                </Switch>
+                <Header/>
+                <App/>
              </Suspense>
-          </Router>
+      </Router>
     </Provider> , 
     document.getElementById('root')
     );

@@ -3,7 +3,8 @@ import {
     DELETE_FIGURE,
     SORT_BY_VALUE,
     SORT_BY_NAME,
-    SORT_DEFAULT
+    SORT_DEFAULT,
+    EDIT_FIGURE
   } from '../constants'
   const initialState = {
     info : [
@@ -65,7 +66,7 @@ import {
           id : state.info.reduce((maxId, figure) => Math.max(figure.id, maxId), -1) + 1,
           label : action.text
         }
-      ) });          
+      ).sort(sortDefault) });          
 
       case DELETE_FIGURE:
         {    
@@ -83,6 +84,20 @@ import {
       case SORT_DEFAULT:
         { 
           return Object.assign({} , state, {info : state.info.sort(sortDefault), id:!action.sort })       
+        } 
+      case EDIT_FIGURE:
+        { 
+          console.log("fd", action.id, action.value );
+          return Object.assign({}, state, {info:state.info.map(figure => {
+            if (figure.id == action.id) {
+              return {
+                ...figure,
+                value: Math.round(action.value * 100) / 100
+              }
+            }
+            return figure
+          })}
+          )
         } 
       default:
         return state;

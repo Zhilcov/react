@@ -56,16 +56,21 @@ class Triangle extends React.Component{
           }
       }
       
-      handleSubmit(event) {
+      handleSubmit(event,id) {
         event.preventDefault();
         event.stopPropagation();  
            var a = parseInt(this.state.a),
                b = parseInt(this.state.b),
                c = parseInt(this.state.c)     
            if ((a < b+c) & (b < a+c) & (c < a+b)){
-            var obj = new Figures.Triangle(+a,+b,+c);  
-            this.props.addFigures("triangle" , obj.calcArea());
-            this.setState({isSet:true});
+              if (id === null){
+                var obj = new Figures.Triangle(+a,+b,+c);  
+                this.props.addFigures("triangle" , obj.calcArea());
+                this.setState({isSet:true});
+              }else{
+                var obj = new Figures.Triangle(+a,+b,+c);  
+                this.props.editFigures(id , obj.calcArea());
+              }
            }else this.setState({isSet:false});
               
       }
@@ -80,9 +85,10 @@ class Triangle extends React.Component{
         }else return " "
       }
       render(){
-        const { aIsValid,bIsValid,cIsValid } = this.state;           
+        const { aIsValid,bIsValid,cIsValid } = this.state;
+        var id = new URLSearchParams(this.props.location.search).get("id")           
         return (
-          <Form onSubmit={e => this.handleSubmit(e)}
+          <Form onSubmit={e => this.handleSubmit(e,id)}
           >              
                
               <Form.Group  md="4">              
@@ -129,7 +135,9 @@ class Triangle extends React.Component{
                   {cIsValid ? "Данные корректны" : "Длинна стороны должна быть больше нуля"}
                   </Form.Control.Feedback>
                 </Form.Group>                      
-              <Button type="submit" disabled = {aIsValid && bIsValid && cIsValid ? false : true}>Добавить</Button>
+              <Button type="submit" disabled = {aIsValid && bIsValid && cIsValid ? false : true}>
+              {id ?  "Изменить" : "Добавить"  }
+              </Button>
           </Form>
         )
       }

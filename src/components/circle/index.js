@@ -26,13 +26,20 @@ class Circle extends React.Component{
         
       }
 
-      handleSubmit(event) {
+      handleSubmit(event,id) {
         event.preventDefault();
         event.stopPropagation();        
         if(this.state.isValid === true){
-          var a = this.state.a; var obj ;
-          obj = new Figures.Circle(a);
-          this.props.addFigures("circle" , obj.calcArea()); 
+          console.log(id);
+            if(id === null){
+              var a = this.state.a; var obj ;
+              obj = new Figures.Circle(a);
+              this.props.addFigures("circle" , obj.calcArea()); 
+            }else{
+              var a = this.state.a; var obj ;
+              obj = new Figures.Circle(a);
+              this.props.editFigures(id,obj.calcArea());
+            }
         }
       }
 
@@ -42,9 +49,11 @@ class Circle extends React.Component{
       if(typeof(isValid) === "boolean"){
         isValid ? classtext = 'is-valid': classtext ='is-invalid'
       }      
+      /* const params = new URLSearchParams(this.props.location.search); */
       
+      var id = new URLSearchParams(this.props.location.search).get("id")
       return (
-        <Form onSubmit={e => this.handleSubmit(e)}
+        <Form onSubmit={e => this.handleSubmit(e,id)}
         >
             <Form.Group  md="4">
               <Form.Label>Введите радиус</Form.Label>
@@ -59,7 +68,7 @@ class Circle extends React.Component{
               <Form.Control.Feedback>Данные корректны</Form.Control.Feedback>
               <Form.Control.Feedback type ="invalid">Радиус должен быть больше нуля</Form.Control.Feedback>
             </Form.Group>         
-          <Button type="submit" disabled = {isValid ? false : true}>Добавить</Button>
+          <Button type="submit" disabled = {isValid ? false : true}>{id ?  "Изменить" : "Добавить"  }</Button>
         </Form>
       )
     }

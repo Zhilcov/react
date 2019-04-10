@@ -24,10 +24,8 @@ class Stats extends Component {
                 triangle += obj.value;
             }      
           });     
-               
         return(
          <div className="container">
-            <Header></Header>
              <div className="col col-md-12 text-center">
                 <h1>Статистика</h1>
                 <div className="row">
