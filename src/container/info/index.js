@@ -8,6 +8,7 @@ const mapStateToProps = (state,ownProps) => ({
     value: state.todos.value,
     id: state.todos.id,
     lable : state.todos.lable,
+    state : state.appearance,
     ownProps
   })
   

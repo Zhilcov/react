@@ -40,10 +40,11 @@ class Square extends React.Component{
             this.props.editFigures(id , obj.calcArea());
             this.setState({ redirectToNewPage: true }) 
           }
-           
+          this.props.show();
         }
       }
-
+      componentWillUnmount() {  
+      }
       render(){
         if (this.state.redirectToNewPage) {
           this.setState({ redirectToNewPage: false })

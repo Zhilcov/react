@@ -23,7 +23,7 @@ class Triangle extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addClassTextToInput = this.addClassTextToInput.bind(this);        
       }    
-     
+      
       handleChange(event) {
           var id = event.target.id;
           var valueA, valueB, valueC; 
@@ -76,6 +76,7 @@ class Triangle extends React.Component{
                 this.props.editFigures(id , obj.calcArea());
                 this.setState({ redirectToNewPage: true })
               }
+              this.props.show(); 
            }else this.setState({isSet:false});
               
       }

@@ -13,7 +13,7 @@ import Info from "../container/info";
 class Input extends React.Component{    
     
     render(){
-        const {addFigure , editFigure} = this.props                    
+        const {addFigure , editFigure, showRecycle} = this.props                            
         return (
             <Router>
                 <div className="col col-md-12">
@@ -21,40 +21,44 @@ class Input extends React.Component{
                         <div className="col col-md-5 offset-1">
                             <h1>Ввод данных</h1>
                             <DropdownButton id="dropdown-item-button" title="Выберите фигуру">
-                                <Link to='/circle'><Dropdown.Item as="button">Круг</Dropdown.Item></Link>
-                                <Link to="/square"><Dropdown.Item as="button">Квадрат</Dropdown.Item></Link>
-                                <Link to="/rectangle"><Dropdown.Item as="button">Прямоугольник</Dropdown.Item></Link>
-                                <Link to="/triangle"><Dropdown.Item as="button">Треугольник</Dropdown.Item></Link>
+                                <Link to='/circle'><Dropdown.Item onClick ={showRecycle} as="button">Круг</Dropdown.Item></Link>
+                                <Link to="/square"><Dropdown.Item onClick ={showRecycle} as="button">Квадрат</Dropdown.Item></Link>
+                                <Link to="/rectangle"><Dropdown.Item onClick ={showRecycle} as="button">Прямоугольник</Dropdown.Item></Link>
+                                <Link to="/triangle"><Dropdown.Item onClick ={showRecycle} as="button">Треугольник</Dropdown.Item></Link>
                             </DropdownButton>
                         </div>
                         <div className="col col-md-4">
                             <Route path="/circle" render={(props)=>
                                 <Circle 
                                 addFigures={addFigure}
-                                editFigures = {editFigure} 
+                                editFigures = {editFigure}
+                                show = {showRecycle}
                                 {...props}/>} />
 
                             <Route path="/square" render={(props)=>
                                 <Square 
                                 addFigures={addFigure}
-                                editFigures = {editFigure} 
+                                editFigures = {editFigure}
+                                show = {showRecycle}
                                 {...props}/>} />
                                 
                             <Route  path="/rectangle" render={(props)=>
                                 <Rectangle
                                 addFigures={addFigure}
-                                editFigures = {editFigure}  
+                                editFigures = {editFigure}
+                                show = {showRecycle}
                                 {...props}/>} />
 
                             <Route path="/triangle" render={(props)=>
                                 <Triangle 
                                 addFigures={addFigure}
-                                editFigures = {editFigure} 
+                                editFigures = {editFigure}
+                                show = {showRecycle}
                                 {...props}/>} />           
                         </div>
                    </div>
                 </div>
-                <Info/>
+                <Info  />
             </Router>
         )
     }

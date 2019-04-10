@@ -15,9 +15,7 @@ class Info extends React.Component {
     }
 
     handleChange(e){
-        var id = e.target.id;
-       
-        
+        var id = e.target.id;        
         switch (id) {
             case "id":
                 this.setState({hideName: true, hideValue: true, hideId : false});
@@ -35,7 +33,8 @@ class Info extends React.Component {
 
     render(){    
         const {figures, actions , value , lable, id} = this.props        
-                                                                            
+        
+                                                                             
         return(
             <div className ="col col-md-12">
                     <h1 className ="info">Информация</h1>

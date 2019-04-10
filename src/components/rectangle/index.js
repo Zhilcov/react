@@ -57,11 +57,10 @@ class Rectangle extends React.Component{
                 this.props.editFigures(id, obj.calcArea() );
                 this.setState({ redirectToNewPage: true })
               }
-              
+              this.props.show();
             }
       }
-            
-        
+                    
       render(){
         if (this.state.redirectToNewPage) {
           this.setState({ redirectToNewPage: false })

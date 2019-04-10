@@ -4,24 +4,29 @@ import {
     SORT_BY_VALUE,
     SORT_BY_NAME,
     SORT_DEFAULT,
-    EDIT_FIGURE
+    EDIT_FIGURE,
+    RECYCLE,
+    RECYCLE_BIN
   } from '../constants'
   const initialState = {
     info : [
       {
           value : 22,
           id : 1,
-          label: "triangle"
+          label: "triangle",
+          recycle: true
       },
       {
           value : 23,
           id : 2,
-          label: "circle"
+          label: "circle",
+          recycle: true
       },
       {
         value : 23,
         id : 3,
-        label: "square"
+        label: "square",
+        recycle: true
       }
     ],
       value : false ,
@@ -64,9 +69,36 @@ import {
         { 
           value: Math.round(action.value * 100) / 100 ,
           id : state.info.reduce((maxId, figure) => Math.max(figure.id, maxId), -1) + 1,
-          label : action.text
+          label : action.text,
+          recycle: true
         }
       ).sort(sortDefault) });          
+      
+      case RECYCLE:
+      {    
+        return Object.assign({}, state, {info:state.info.map(figure => {
+          if (figure.id == action.id) {
+            return {
+              ...figure,
+              recycle: false
+            }
+          }
+          return figure
+        })}
+        ) 
+      }
+      
+      case RECYCLE_BIN:
+      {    
+        console.log("я показал");
+        return Object.assign({}, state, {info:state.info.map(figure => {
+            return {
+              ...figure,
+              recycle: true
+            }
+        })}
+        )   
+      }
 
       case DELETE_FIGURE:
         {    
