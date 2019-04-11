@@ -4,7 +4,8 @@ import Input from "../../container/input";
 class Form extends React.Component {    
     render(){
         return(
-            <div className="container">                
+            <div className="container">
+                                
                 <Input/>
             </div>
         )

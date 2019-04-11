@@ -4,10 +4,10 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import './index.css';
+import {Router}  from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createBrowserHistory } from 'history';
-import {Router }  from 'react-router-dom';
 import { syncHistoryWithStore } from 'react-router-redux';
 import Header from "./components/header"
 const store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())

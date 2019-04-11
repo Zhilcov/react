@@ -19,18 +19,16 @@ class FigureItem extends React.Component{
     render() {
         let smClose = () => this.setState({ smShow: false });
         const { figure , deleteFigure, hideRecycle,showRecycle  } = this.props;
-        
-                                
+
         return (
             <tr>
                 <th scope="row">{figure.id}</th>
                 <td>{figure.value}</td>
                 <td>{figure.label}</td>
-                <td onClick = {()=>{
-                    console.log("я спрятал");
+                <td><Link to ={{ pathname: `/${figure.label}`, search: `?id=${figure.id}` }}><i  onClick = {()=>{
                     showRecycle();
                     hideRecycle(figure.id);
-                }} ><Link to ={{ pathname: `/${figure.label}`, search: `?id=${figure.id}` }}><i className="fas fa-edit"></i></Link></td>
+                }} className="fas fa-edit"></i></Link></td>
                 <td>{figure.recycle ? <i className="fas fa-trash-alt" onClick = {this.smShow}  ></i>  : ''}</td>
                     <Modal
                         size="sm"
