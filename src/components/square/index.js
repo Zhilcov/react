@@ -74,8 +74,23 @@ class Square extends React.Component{
                 />
                 <Form.Control.Feedback>Данные корректны</Form.Control.Feedback>
                 <Form.Control.Feedback type ="invalid">Радиус должен быть больше нуля</Form.Control.Feedback>
-              </Form.Group>         
-              <Button type="submit" disabled = {isValid ? false : true}>{id ?  "Изменить" : "Добавить"  }</Button>
+              </Form.Group>   
+
+              <Button
+                className = "btn btn-success" 
+                type="submit" 
+                disabled = {isValid ? false : true}>
+                {id ?  "Изменить" : "Добавить"  }
+              </Button>
+
+              {id ? <Button className = "btn btn-danger" 
+                        onClick = {()=>{
+                          this.setState({ redirectToNewPage: true })
+                          this.props.show();
+                          }}> 
+                        Отмена 
+                      </Button>: " "  
+                }
           </Form>
         )
       }

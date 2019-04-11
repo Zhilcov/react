@@ -148,9 +148,22 @@ class Triangle extends React.Component{
                   {cIsValid ? "Данные корректны" : "Длинна стороны должна быть больше нуля"}
                   </Form.Control.Feedback>
                 </Form.Group>                      
-              <Button type="submit" disabled = {aIsValid && bIsValid && cIsValid ? false : true}>
-              {id ?  "Изменить" : "Добавить"  }
+              
+              <Button
+                className = "btn btn-success" 
+                type="submit" 
+                disabled = {aIsValid && bIsValid && cIsValid ? false : true}>
+                {id ?  "Изменить" : "Добавить"  }
               </Button>
+
+              {id ? <Button className = "btn btn-danger" 
+                        onClick = {()=>{
+                          this.setState({ redirectToNewPage: true })
+                          this.props.show();
+                          }}> 
+                        Отмена 
+                      </Button>: " "  
+                }
           </Form>
         )
       }

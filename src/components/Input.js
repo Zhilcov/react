@@ -19,10 +19,10 @@ class Input extends React.Component{
                         <div className="col col-md-5 offset-1">
                             <h1>Ввод данных</h1>
                             <DropdownButton id="dropdown-item-button" title="Выберите фигуру">
-                                <Link to='/circle'><Dropdown.Item  as="button">Круг</Dropdown.Item></Link>
-                                <Link to="/square"><Dropdown.Item  as="button">Квадрат</Dropdown.Item></Link>
-                                <Link to="/rectangle"><Dropdown.Item  as="button">Прямоугольник</Dropdown.Item></Link>
-                                <Link to="/triangle"><Dropdown.Item as="button">Треугольник</Dropdown.Item></Link>
+                                <Link to='/circle'><Dropdown.Item onClick ={showRecycle} as="button">Круг</Dropdown.Item></Link>
+                                <Link to="/square"><Dropdown.Item onClick ={showRecycle} as="button">Квадрат</Dropdown.Item></Link>
+                                <Link to="/rectangle"><Dropdown.Item onClick ={showRecycle}  as="button">Прямоугольник</Dropdown.Item></Link>
+                                <Link to="/triangle"><Dropdown.Item onClick ={showRecycle} as="button">Треугольник</Dropdown.Item></Link>
                             </DropdownButton>    
                         </div>
                         <div className="col col-md-4">

@@ -90,12 +90,14 @@ import {
       
       case RECYCLE_BIN:
       {    
-        console.log("я показал");
         return Object.assign({}, state, {info:state.info.map(figure => {
+          if (!figure.recycle) {
             return {
               ...figure,
               recycle: true
             }
+          }
+          return figure
         })}
         )   
       }

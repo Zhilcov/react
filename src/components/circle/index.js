@@ -60,8 +60,7 @@ class Circle extends React.Component{
       if(typeof(isValid) === "boolean"){
         isValid ? classtext = 'is-valid': classtext ='is-invalid'
       }      
-      /* const params = new URLSearchParams(this.props.location.search); */
-      
+
       var id = new URLSearchParams(this.props.location.search).get("id")
       return (
         <Form onSubmit={e => this.handleSubmit(e,id)}
@@ -77,8 +76,23 @@ class Circle extends React.Component{
               />
               <Form.Control.Feedback>Данные корректны</Form.Control.Feedback>
               <Form.Control.Feedback type ="invalid">Радиус должен быть больше нуля</Form.Control.Feedback>
-            </Form.Group>         
-          <Button type="submit" disabled = {isValid ? false : true}>{id ?  "Изменить" : "Добавить"  }</Button>
+            </Form.Group>  
+
+          <Button type="submit"
+          className = "btn btn-success" 
+          disabled = {isValid ? false : true}>
+          {id ?  "Изменить" : "Добавить"  }
+          </Button>
+
+          {id ? <Button className = "btn btn-danger" 
+                  onClick = {()=>{
+                    this.setState({ redirectToNewPage: true })
+                    this.props.show();
+                    }}> 
+                  Отмена 
+                </Button>: " "  
+          }
+
         </Form>
       )
     }

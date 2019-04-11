@@ -3,7 +3,11 @@ import { Pie } from 'react-chartjs';
 import TableForStats from "../tableForStats/tableForStats"
 import "./stats.css"
 class Stats extends Component {
+    componentWillUnmount(){
+        this.props.actions.showRecycle()
+    }
     render(){
+        
         var squares = 0;
         var rectangle = 0;
         var circle = 0;
