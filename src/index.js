@@ -10,7 +10,7 @@ import * as serviceWorker from './serviceWorker';
 import { createBrowserHistory } from 'history';
 import { syncHistoryWithStore } from 'react-router-redux';
 import Header from "./components/header"
-const saveState = (state) => {
+/* const saveState = (state) => {
   try {
 
       const serialisedState = JSON.stringify(state);
@@ -33,12 +33,12 @@ const loadState = () => {
       
   }
 };
-const oldState = loadState();
-const store = createStore(reducer,oldState,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+const oldState = loadState(); */
+const store = createStore(reducer,/* oldState, */window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 const history = syncHistoryWithStore(createBrowserHistory(), store);
-store.subscribe(() => {
+/* store.subscribe(() => {
   saveState(store.getState());
-});
+}); */
 ReactDOM.render(
     <Provider store={store}>
       <Router history={history}>

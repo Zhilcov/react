@@ -10,20 +10,16 @@ import {
   } from '../constants'
   const initialState = {
     info : [
-      {
-          value : 22,
-          id : 1,
-          label: "triangle",
-          recycle: true
-      },
-      {
-          value : 23,
+      {   
+          sides : [7],
+          value : 153.94,
           id : 2,
           label: "circle",
           recycle: true
       },
       {
-        value : 23,
+        sides : [4],
+        value : 16,
         id : 3,
         label: "square",
         recycle: true
@@ -66,11 +62,13 @@ import {
     switch (action.type) {
       case ADD_FIGURE:
       return  Object.assign({} ,state, { info : state.info.concat(
+       
         { 
           value: Math.round(action.value * 100) / 100 ,
           id : state.info.reduce((maxId, figure) => Math.max(figure.id, maxId), -1) + 1,
           label : action.text,
-          recycle: true
+          recycle: true,
+          sides: action.sides
         }
       ).sort(sortDefault) });          
       
@@ -125,7 +123,8 @@ import {
             if (figure.id == action.id) {
               return {
                 ...figure,
-                value: Math.round(action.value * 100) / 100
+                value: Math.round(action.value * 100) / 100,
+                sides : action.sides
               }
             }
             return figure

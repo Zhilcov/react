@@ -9,8 +9,8 @@ class Rectangle extends React.Component{
         super(props);
         
         this.state = {
-            a: 0,
-            b: 0,
+            a: "",
+            b: "",
             aIsValid: '',
             bIsValid: '',
             redirectToNewPage: false
@@ -26,19 +26,19 @@ class Rectangle extends React.Component{
           if(id === "a"){
             valueA = event.target.value 
               if(+valueA > 0) {
-                this.setState({a: valueA}); 
                 this.setState({aIsValid:true})
               } else {
                 this.setState({aIsValid:false})
               }
+              this.setState({a: valueA}); 
           }else{
             valueB = event.target.value
               if( +valueB > 0 ){
-                this.setState({b: valueB});
                 this.setState({bIsValid:true})  
               }else {
                 this.setState({bIsValid:false})
               }
+              this.setState({b: valueB});
           }
       }
       
@@ -51,16 +51,22 @@ class Rectangle extends React.Component{
             var obj =  new Figures.Rectangle(a,b);        
             if(aIsValid && bIsValid){
               if(id === null){
-                this.props.addFigures("rectangle" , obj.calcArea()); 
-                this.setState({ redirectToNewPage: true })
+                this.props.addFigures("rectangle" , obj.calcArea(),[a,b]); 
               }else{
-                this.props.editFigures(id, obj.calcArea() );
-                this.setState({ redirectToNewPage: true })
+                this.props.editFigures(id, obj.calcArea(),[a,b] );
               }
+              this.setState({ redirectToNewPage: true, a:"",b:"" })
               this.props.show();
             }
       }
-                    
+      componentDidMount(){
+        var a= new URLSearchParams(this.props.location.search).get("a")
+        if(a){
+          a = a.split(",")
+          this.setState({a:a[0],b:a[1]});
+        }
+        
+      }              
       render(){
         if (this.state.redirectToNewPage) {
           this.setState({ redirectToNewPage: false })
@@ -88,7 +94,7 @@ class Rectangle extends React.Component{
                   required
                   type="number"
                   placeholder="Сторона a"
-                  defaultValue = ""
+                  value = {this.state.a}
                   onChange = {this.handleChange}
                   id = "a"
                 />
@@ -102,7 +108,7 @@ class Rectangle extends React.Component{
                   required
                   type="number"
                   placeholder="Сторона b"
-                  defaultValue = ""
+                  value = {this.state.b}
                   onChange = {this.handleChange}
                   id = "b"
                 />
@@ -120,7 +126,7 @@ class Rectangle extends React.Component{
            
                 {id ? <Button className = "btn btn-danger" 
                         onClick = {()=>{
-                          this.setState({ redirectToNewPage: true })
+                          this.setState({ redirectToNewPage: true, a:"",b:"" })
                           this.props.show();
                           }}> 
                         Отмена 

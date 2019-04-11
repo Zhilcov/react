@@ -12,7 +12,8 @@ import Info from "../container/info";
 class Input extends React.Component{    
     
     render(){
-        const {addFigure , editFigure, showRecycle} = this.props                            
+        const {addFigure , editFigure, showRecycle,routing } = this.props
+        /* console.log(this.props.routing); */                             
         return (
                 <div className="col col-md-12">
                    <div className="row input">
@@ -31,6 +32,7 @@ class Input extends React.Component{
                                 addFigures={addFigure}
                                 editFigures = {editFigure}
                                 show = {showRecycle}
+                                routing = {routing}
                                 {...props}/>} />
 
                             <Route path="/square" render={(props)=>

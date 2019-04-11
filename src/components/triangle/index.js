@@ -10,9 +10,9 @@ class Triangle extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            a: 0,
-            b: 0,
-            c: 0,
+            a: "",
+            b: "",
+            c: "",
             aIsValid: '',
             bIsValid: '',
             cIsValid: '',
@@ -29,9 +29,9 @@ class Triangle extends React.Component{
           var valueA, valueB, valueC; 
           switch (id) {
             case "a":
-              valueA = event.target.value 
+              valueA = event.target.value
+              this.setState({a: valueA});  
               if(+valueA > 0) {
-                this.setState({a: valueA}); 
                 this.setState({aIsValid:true})
               } else {
                 this.setState({aIsValid:false})
@@ -39,8 +39,8 @@ class Triangle extends React.Component{
               break;
             case "b":
               valueB = event.target.value
+              this.setState({b: valueB});
               if( +valueB > 0 ){
-                this.setState({b: valueB});
                 this.setState({bIsValid:true})  
               }else {
                 this.setState({bIsValid:false})
@@ -48,8 +48,8 @@ class Triangle extends React.Component{
               break;
             case "c":
               valueC = event.target.value
-              if( +valueC > 0 ){
-                this.setState({c: valueC});
+              this.setState({c: valueC});
+              if( +valueC > 0 ){                
                 this.setState({cIsValid:true})  
               }else {
                 this.setState({cIsValid:false})
@@ -69,13 +69,12 @@ class Triangle extends React.Component{
                obj = new Figures.Triangle(+a,+b,+c);    
            if ((a < b+c) & (b < a+c) & (c < a+b)){
               if (id === null){
-                this.props.addFigures("triangle" , obj.calcArea());
+                this.props.addFigures("triangle" , obj.calcArea(),[a,b,c]);
                 this.setState({isSet:true});
-                this.setState({ redirectToNewPage: true })
               }else{
-                this.props.editFigures(id , obj.calcArea());
-                this.setState({ redirectToNewPage: true })
+                this.props.editFigures(id , obj.calcArea(),[a,b,c]);
               }
+              this.setState({ redirectToNewPage: true , a:"",b:"",c:"" })
               this.props.show(); 
            }else this.setState({isSet:false});
               
@@ -89,6 +88,13 @@ class Triangle extends React.Component{
           isValid ?  classtext = 'is-valid': classtext ='is-invalid'
           return classtext
         }else return " "
+      }
+      componentDidMount(){
+        var a= new URLSearchParams(this.props.location.search).get("a")
+        if(a){
+          a = a.split(",")
+          this.setState({a:a[0],b:a[1],c:a[2]});
+        }
       }
       render(){
         if (this.state.redirectToNewPage) {
@@ -112,7 +118,7 @@ class Triangle extends React.Component{
                     required
                     type="number"
                     placeholder="Сторона a"
-                    defaultValue = ""
+                    value = {this.state.a}
                     onChange = {this.handleChange}
                     id = "a"
                   />
@@ -126,7 +132,7 @@ class Triangle extends React.Component{
                     required
                     type="number"
                     placeholder="Сторона b"
-                    defaultValue = ""
+                    value = {this.state.b}
                     onChange = {this.handleChange}
                     id = "b"
                   />
@@ -140,7 +146,7 @@ class Triangle extends React.Component{
                     required
                     type="number"
                     placeholder="Сторона c"
-                    defaultValue = ""
+                    value = {this.state.c}
                     onChange = {this.handleChange}
                     id = "c"
                   />
@@ -158,7 +164,7 @@ class Triangle extends React.Component{
 
               {id ? <Button className = "btn btn-danger" 
                         onClick = {()=>{
-                          this.setState({ redirectToNewPage: true })
+                          this.setState({ redirectToNewPage: true , a:"",b:"",c:"" })
                           this.props.show();
                           }}> 
                         Отмена 

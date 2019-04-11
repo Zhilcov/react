@@ -7,7 +7,7 @@ class Square extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            a: 0,
+            a: "",
             isValid:'',
             redirectToNewPage: false
         };
@@ -19,12 +19,12 @@ class Square extends React.Component{
       handleChange(event) {
         var value = event.target.value     
         if(+value > 0){
-          this.setState({isValid:true})
-          this.setState({a:value });     
+          this.setState({isValid:true})    
         }else {
           this.setState({isValid:false})
+         
         }
-           
+        this.setState({a:value });   
       }
 
       handleSubmit(event,id) {
@@ -34,16 +34,16 @@ class Square extends React.Component{
         var obj = new Figures.Figure(a);        
         if(this.state.isValid === true){
           if(id === null){
-            this.props.addFigures("square" , obj.calcArea()); 
-            this.setState({ redirectToNewPage: true })
+            this.props.addFigures("square" , obj.calcArea(),[a]);
           }else{
-            this.props.editFigures(id , obj.calcArea());
-            this.setState({ redirectToNewPage: true }) 
+            this.props.editFigures(id , obj.calcArea(),[a]);
           }
+          this.setState({ redirectToNewPage: true,a:"" })
           this.props.show();
         }
       }
-      componentWillUnmount() {  
+      componentDidMount() {
+          this.setState({a:new URLSearchParams(this.props.location.search).get("a")})
       }
       render(){
         if (this.state.redirectToNewPage) {
@@ -69,7 +69,7 @@ class Square extends React.Component{
                   required
                   type="number"
                   placeholder="Сторона"
-                  defaultValue = ""
+                  value =   {this.state.a}
                   onChange = {this.handleChange}
                 />
                 <Form.Control.Feedback>Данные корректны</Form.Control.Feedback>
@@ -85,7 +85,7 @@ class Square extends React.Component{
 
               {id ? <Button className = "btn btn-danger" 
                         onClick = {()=>{
-                          this.setState({ redirectToNewPage: true })
+                          this.setState({ redirectToNewPage: true, a:"" })
                           this.props.show();
                           }}> 
                         Отмена 

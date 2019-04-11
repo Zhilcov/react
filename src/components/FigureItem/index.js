@@ -19,13 +19,13 @@ class FigureItem extends React.Component{
     render() {
         let smClose = () => this.setState({ smShow: false });
         const { figure , deleteFigure, hideRecycle,showRecycle  } = this.props;
-
+    
         return (
             <tr>
                 <th scope="row">{figure.id}</th>
                 <td>{figure.value}</td>
                 <td>{figure.label}</td>
-                <td><Link to ={{ pathname: `/${figure.label}`, search: `?id=${figure.id}` }}><i  onClick = {()=>{
+                <td><Link to ={{ pathname: `/${figure.label}`, search: `?id=${figure.id}&a=${figure.sides}` }}><i  onClick = {()=>{
                     showRecycle();
                     hideRecycle(figure.id);
                 }} className="fas fa-edit"></i></Link></td>
