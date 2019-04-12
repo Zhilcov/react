@@ -7,12 +7,13 @@ class Square extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            a: "",
+            a: "0",
             isValid:'',
             redirectToNewPage: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.fillInputs = this.fillInputs.bind(this);
       }
     
      
@@ -45,6 +46,9 @@ class Square extends React.Component{
       componentDidMount() {
           this.setState({a:new URLSearchParams(this.props.location.search).get("a")})
       }
+      fillInputs(){
+        this.setState({a:new URLSearchParams(this.props.location.search).get("a")});
+      }
       render(){
         if (this.state.redirectToNewPage) {
           this.setState({ redirectToNewPage: false })
@@ -60,7 +64,7 @@ class Square extends React.Component{
         }      
         var id = new URLSearchParams(this.props.location.search).get("id")
         return (
-          <Form onSubmit={e => this.handleSubmit(e,id)}
+          <Form onSubmit={e => this.handleSubmit(e,id)} onMouseEnter={this.fillInputs}
           >
               <Form.Group  md="4">
                 <Form.Label>Введите длинну стороны</Form.Label>

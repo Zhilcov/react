@@ -10,9 +10,9 @@ class Triangle extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            a: "",
-            b: "",
-            c: "",
+            a: "0",
+            b: "0",
+            c: "0",
             aIsValid: '',
             bIsValid: '',
             cIsValid: '',
@@ -21,7 +21,8 @@ class Triangle extends React.Component{
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.addClassTextToInput = this.addClassTextToInput.bind(this);        
+        this.addClassTextToInput = this.addClassTextToInput.bind(this);
+        this.fillInputs = this.fillInputs.bind(this);        
       }    
       
       handleChange(event) {
@@ -96,6 +97,13 @@ class Triangle extends React.Component{
           this.setState({a:a[0],b:a[1],c:a[2]});
         }
       }
+      fillInputs(){
+        var a= new URLSearchParams(this.props.location.search).get("a")
+        if(a){
+          a = a.split(",")
+          this.setState({a:a[0],b:a[1],c:a[2]});
+        }
+      }
       render(){
         if (this.state.redirectToNewPage) {
           this.setState({ redirectToNewPage: false })
@@ -107,7 +115,7 @@ class Triangle extends React.Component{
         const { aIsValid,bIsValid,cIsValid } = this.state;
         var id = new URLSearchParams(this.props.location.search).get("id")           
         return (
-          <Form onSubmit={e => this.handleSubmit(e,id)}
+          <Form onSubmit={e => this.handleSubmit(e,id)} onMouseEnter={this.fillInputs}
           >              
                
               <Form.Group  md="4">              

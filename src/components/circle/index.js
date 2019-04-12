@@ -9,13 +9,13 @@ class Circle extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            a: "",
+            a: "0",
             isValid:  "",
             redirectToNewPage: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.method = this.method.bind(this);
+        this.fillInputs = this.fillInputs.bind(this);
       }
     
       handleChange(event) {
@@ -49,7 +49,7 @@ class Circle extends React.Component{
       componentDidMount(){        
         this.setState({a:new URLSearchParams(this.props.location.search).get("a")});
       }
-      method(){
+      fillInputs(){
         this.setState({a:new URLSearchParams(this.props.location.search).get("a")});
       }
       render() {
@@ -66,12 +66,10 @@ class Circle extends React.Component{
         isValid ? classtext = 'is-valid': classtext ='is-invalid'
       }      
       var id = new URLSearchParams(this.props.location.search).get("id")    
-      /* var a = new URLSearchParams(this.props.location.search).get("a");
-      console.log(a); */
+      /* var a = new URLSearchParams(this.props.location.search).get("a"); */
       
       return (
-        <Form onSubmit={e => this.handleSubmit(e,id)}>
-            <button onClick={this.method}></button>
+        <Form onSubmit={e => this.handleSubmit(e,id)} onMouseEnter={this.fillInputs}>
             <Form.Group  md="4">
               <Form.Label>Введите радиус</Form.Label>
               <Form.Control
@@ -79,7 +77,8 @@ class Circle extends React.Component{
                 required
                 type="text"
                 placeholder="Радиус"
-               value = {this.state.a}
+                defaultValue = '1'
+                value = {this.state.a}
                 onChange = {this.handleChange}
               />
               <Form.Control.Feedback>Данные корректны</Form.Control.Feedback>

@@ -1,7 +1,6 @@
 import React from "react";
 import FigureItem from "../FigureItem"
 import './info.css';
-
 class Info extends React.Component {
     
     constructor(props) {
@@ -14,6 +13,9 @@ class Info extends React.Component {
         this.handleChange = this.handleChange.bind(this);    
     }
 
+    componentDidMount() {
+        this.props.actions.getFigures(`http://localhost:3003/`)
+    }
     handleChange(e){
         var id = e.target.id;        
         switch (id) {

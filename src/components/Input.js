@@ -8,9 +8,7 @@ import Triangle from "./triangle"
 import "./input.css"
 import Info from "../container/info";
 
-
-class Input extends React.Component{    
-    
+class Input extends React.Component{
     render(){
         const {addFigure , editFigure, showRecycle,routing } = this.props
         /* console.log(this.props.routing); */                             

@@ -9,14 +9,15 @@ class Rectangle extends React.Component{
         super(props);
         
         this.state = {
-            a: "",
-            b: "",
+            a: "0",
+            b: "0",
             aIsValid: '',
             bIsValid: '',
             redirectToNewPage: false
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);     
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.fillInputs   = this.fillInputs.bind(this);  
       }
     
      
@@ -41,7 +42,13 @@ class Rectangle extends React.Component{
               this.setState({b: valueB});
           }
       }
-      
+      fillInputs(){
+        var a= new URLSearchParams(this.props.location.search).get("a")
+        if(a){
+          a = a.split(",")
+          this.setState({a:a[0],b:a[1]});
+        }
+      }
       handleSubmit(event,id) {
         const { aIsValid,bIsValid } = this.state;
             event.preventDefault();
@@ -85,7 +92,7 @@ class Rectangle extends React.Component{
         }       
         var id = new URLSearchParams(this.props.location.search).get("id")
         return (
-          <Form onSubmit={e => this.handleSubmit(e,id)}
+          <Form onSubmit={e => this.handleSubmit(e,id)} onMouseEnter={this.fillInputs}
           >
               <Form.Group  md="4">
                 <Form.Label>Введите координаты</Form.Label>

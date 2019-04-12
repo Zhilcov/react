@@ -9,22 +9,7 @@ import {
     RECYCLE_BIN
   } from '../constants'
   const initialState = {
-    info : [
-      {   
-          sides : [7],
-          value : 153.94,
-          id : 2,
-          label: "circle",
-          recycle: true
-      },
-      {
-        sides : [4],
-        value : 16,
-        id : 3,
-        label: "square",
-        recycle: true
-      }
-    ],
+    info : [],
       value : false ,
       id : false , 
       lable: false 
@@ -60,6 +45,11 @@ import {
       
     }
     switch (action.type) {
+      case "FIGURES_FETCH_SUCCESS" :
+      {
+        return Object.assign({} ,state, { info : action.figures })
+      }      
+
       case ADD_FIGURE:
       return  Object.assign({} ,state, { info : state.info.concat(
        
