@@ -73,7 +73,7 @@ class Triangle extends React.Component{
                 this.props.addFigures(`http://localhost:3003/`, "triangle" , obj.calcArea(),[a,b,c]);
                 this.setState({isSet:true});
               }else{
-                this.props.editFigures(id , obj.calcArea(),[a,b,c]);
+                this.props.editFigures(`http://localhost:3003/${id}`, obj.calcArea(),[a,b,c]);
               }
               this.setState({ redirectToNewPage: true , a:"0",b:"0",c:"0" })
               this.props.show(); 

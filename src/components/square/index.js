@@ -8,7 +8,7 @@ class Square extends React.Component{
         super(props);
         this.state = {
             a: "0",
-            isValid:'',
+            isValid:' ',
             redirectToNewPage: false
         };
         this.handleChange = this.handleChange.bind(this);
@@ -39,7 +39,7 @@ class Square extends React.Component{
           if(id === null){
             this.props.addFigures(`http://localhost:3003/` , "square" , obj.calcArea(),[a]);
           }else{
-            this.props.editFigures(id , obj.calcArea(),[a]);
+            this.props.editFigures(`http://localhost:3003/${id}`, obj.calcArea(),[a]);
           }
           this.setState({ redirectToNewPage: true,a:"0" })
           this.props.show();
@@ -54,7 +54,7 @@ class Square extends React.Component{
       render(){
         if (this.state.redirectToNewPage) {
           this.setState({ redirectToNewPage: false })
-          this.setState({ isValid:  ""});
+          this.setState({ isValid:  " "});
           return (
             <Redirect to="/square"/>
             )
@@ -73,9 +73,9 @@ class Square extends React.Component{
                 <Form.Control
                   className ={classtext}
                   required
-                  type="number"
+                  type="text"
                   placeholder="Сторона"
-                  value =   {this.state.a}
+                  value = {this.state.a || " "}
                   onChange = {this.handleChange}
                 />
                 <Form.Control.Feedback>Данные корректны</Form.Control.Feedback>

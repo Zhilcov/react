@@ -1,10 +1,7 @@
 import {
-    ADD_FIGURE,
-    DELETE_FIGURE,
     SORT_BY_VALUE,
     SORT_BY_NAME,
     SORT_DEFAULT,
-    EDIT_FIGURE,
     RECYCLE,
     RECYCLE_BIN
   } from '../constants'
@@ -77,12 +74,6 @@ import {
         })}
         )   
       }
-
-      /* case DELETE_FIGURE:
-        {    
-            return Object.assign({}, state, {info:state.info.filter(figure => figure.id !== action.id)})  
-        } */
-
       case SORT_BY_VALUE:
         {              
             return Object.assign({} , state, {info : state.info.sort(sortByValue), value : !action.value })          
@@ -94,21 +85,7 @@ import {
       case SORT_DEFAULT:
         { 
           return Object.assign({} , state, {info : state.info.sort(sortDefault), id:!action.sort })       
-        } 
-      case EDIT_FIGURE:
-        { 
-          return Object.assign({}, state, {info:state.info.map(figure => {
-            if (figure.id == action.id) {
-              return {
-                ...figure,
-                value: Math.round(action.value * 100) / 100,
-                sides : action.sides
-              }
-            }
-            return figure
-          })}
-          )
-        } 
+        }  
       default:
         return state;
     }

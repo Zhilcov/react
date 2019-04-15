@@ -25,5 +25,16 @@ module.exports = (app) => {
             res.send(figure);
           });
       });
-
+    
+      
+    app.put("/:id", (req, res)=>{
+                
+        FigureModel.findOneAndUpdate({id: req.params.id}, req.body)
+          .then(() => {
+            FigureModel.findOne({id: req.params.id})
+              .then(figure => {
+                res.send(figure);
+              });
+          });
+      });  
 }

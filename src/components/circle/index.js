@@ -3,14 +3,13 @@ import Figures from "../Figures";
 import "./allFigures.css"
 import {Form, Button } from "react-bootstrap"
 import { Redirect}  from 'react-router-dom'
-import * as axios  from 'axios';
 class Circle extends React.Component{
 
     constructor(props) {
         super(props);
         this.state = {
             a: "0",
-            isValid:  "",
+            isValid:  " ",
             redirectToNewPage: false
         };
         this.handleChange = this.handleChange.bind(this);
@@ -42,7 +41,7 @@ class Circle extends React.Component{
             }else{
               let a = this.state.a; let obj ;
               obj = new Figures.Circle(a);
-              this.props.editFigures(id,obj.calcArea(),[a]);              
+              this.props.editFigures(`http://localhost:3003/${id}`,obj.calcArea(),[a]);              
             }
             this.setState({ redirectToNewPage: true, a:"0" })
             this.props.show();
@@ -57,7 +56,7 @@ class Circle extends React.Component{
       render() {
         if (this.state.redirectToNewPage) {
             this.setState({ redirectToNewPage: false })
-            this.setState({isValid:  ""});
+            this.setState({isValid:  " "});
             return (
               <Redirect to="/circle"/>
               )
@@ -79,7 +78,7 @@ class Circle extends React.Component{
                 required
                 type="text"
                 placeholder="Радиус"
-                value = {this.state.a}
+                value = {this.state.a || " "}
                 onChange = {this.handleChange}
               />
               <Form.Control.Feedback>Данные корректны</Form.Control.Feedback>

@@ -1,6 +1,5 @@
 import * as types from '../constants'
-import axios from 'axios';
-export const editFigure = (id,value,sides) => ({ type: types.EDIT_FIGURE, id , value,sides })
+
 export const sortByValue = (value) => ({ type: types.SORT_BY_VALUE, value })
 export const sortByName = (name) => ({ type: types.SORT_BY_NAME, name})
 export const sort = (sort) => ({ type: types.SORT_DEFAULT, sort})
@@ -43,11 +42,8 @@ export const addFigure = (url,label,value,sides) => {
                 })
                     .then(response => {   
                         dispatch(figuresUpdated(true));
-                        return response
                     })
-                    .then(response => response.json())
-                    .then(persons => console.log(persons))
-                    .catch(()=>{})
+                    .catch((err)=>{console.log(err)})
         }
 } 
 
@@ -58,9 +54,25 @@ export const deleteFigure = url => {
             })
                 .then(response => {
                     dispatch(figuresUpdated(true));
-                    return response
                 })
-                .then(response => response.json())
                 .catch(()=> {console.log("Error with deleting")})
         } 
     }
+
+export const editFigure = (url,value,sides) => {
+    value = Math.round(value * 100) / 100
+    return dispatch => {
+        fetch(url, {
+            method: "PUT",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({value,sides, recycle:true })
+        })
+            .then(response => {
+                dispatch(figuresUpdated(true));
+            })
+            .catch((err)=>{console.log(err)})
+    }
+}    

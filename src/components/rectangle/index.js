@@ -24,10 +24,9 @@ class Rectangle extends React.Component{
       handleChange(event) {
           var id = event.target.id;
           var valueA, valueB;
-          this.setState({aIsValid:true})
-          this.setState({bIsValid:true})    
           if(id === "a"){
-            valueA = event.target.value 
+            valueA = event.target.value
+            this.setState({aIsValid:true}) 
               if(+valueA > 0) {
                 
               } else {
@@ -36,6 +35,7 @@ class Rectangle extends React.Component{
               this.setState({a: valueA}); 
           }else{
             valueB = event.target.value
+            this.setState({bIsValid:true})  
               if( +valueB > 0 ){
               }else {
                 this.setState({bIsValid:false})
@@ -61,7 +61,7 @@ class Rectangle extends React.Component{
               if(id === null){
                 this.props.addFigures(`http://localhost:3003/`, "rectangle" , obj.calcArea(),[a,b]); 
               }else{
-                this.props.editFigures(id, obj.calcArea(),[a,b] );
+                this.props.editFigures(`http://localhost:3003/${id}`, obj.calcArea(),[a,b] );
               }
               this.setState({ redirectToNewPage: true, a:"0",b:"0" })
               this.props.show();
