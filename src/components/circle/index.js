@@ -3,7 +3,7 @@ import Figures from "../Figures";
 import "./allFigures.css"
 import {Form, Button } from "react-bootstrap"
 import { Redirect}  from 'react-router-dom'
-
+import * as axios  from 'axios';
 class Circle extends React.Component{
 
     constructor(props) {
@@ -19,10 +19,12 @@ class Circle extends React.Component{
       }
     
       handleChange(event) {
-        var value = event.target.value 
-        this.setState({a:value });    
+        var value = event.target.value
+        this.setState({isValid:true})
+        this.setState({a:value });
         if(+value > 0){
-          this.setState({isValid:true})    
+         
+              
         }else {
           this.setState({isValid:false})
         }
@@ -36,13 +38,13 @@ class Circle extends React.Component{
             if(id === null){
               let a = this.state.a; let obj ;
               obj = new Figures.Circle(a);
-              this.props.addFigures("circle" , obj.calcArea(), [a]);
+              this.props.addFigures(`http://localhost:3003/`,"circle" , obj.calcArea(), [a]);
             }else{
               let a = this.state.a; let obj ;
               obj = new Figures.Circle(a);
               this.props.editFigures(id,obj.calcArea(),[a]);              
             }
-            this.setState({ redirectToNewPage: true, a:"" })
+            this.setState({ redirectToNewPage: true, a:"0" })
             this.props.show();
         }
       }
@@ -77,7 +79,6 @@ class Circle extends React.Component{
                 required
                 type="text"
                 placeholder="Радиус"
-                defaultValue = '1'
                 value = {this.state.a}
                 onChange = {this.handleChange}
               />

@@ -31,27 +31,27 @@ class Triangle extends React.Component{
           switch (id) {
             case "a":
               valueA = event.target.value
-              this.setState({a: valueA});  
+              this.setState({aIsValid:true})  
+              this.setState({a: valueA});
               if(+valueA > 0) {
-                this.setState({aIsValid:true})
               } else {
                 this.setState({aIsValid:false})
               }
               break;
             case "b":
               valueB = event.target.value
+              this.setState({bIsValid:true}) 
               this.setState({b: valueB});
               if( +valueB > 0 ){
-                this.setState({bIsValid:true})  
               }else {
                 this.setState({bIsValid:false})
               }
               break;
             case "c":
               valueC = event.target.value
+              this.setState({cIsValid:true}) 
               this.setState({c: valueC});
-              if( +valueC > 0 ){                
-                this.setState({cIsValid:true})  
+              if( +valueC > 0 ){
               }else {
                 this.setState({cIsValid:false})
               }
@@ -70,12 +70,12 @@ class Triangle extends React.Component{
                obj = new Figures.Triangle(+a,+b,+c);    
            if ((a < b+c) & (b < a+c) & (c < a+b)){
               if (id === null){
-                this.props.addFigures("triangle" , obj.calcArea(),[a,b,c]);
+                this.props.addFigures(`http://localhost:3003/`, "triangle" , obj.calcArea(),[a,b,c]);
                 this.setState({isSet:true});
               }else{
                 this.props.editFigures(id , obj.calcArea(),[a,b,c]);
               }
-              this.setState({ redirectToNewPage: true , a:"",b:"",c:"" })
+              this.setState({ redirectToNewPage: true , a:"0",b:"0",c:"0" })
               this.props.show(); 
            }else this.setState({isSet:false});
               

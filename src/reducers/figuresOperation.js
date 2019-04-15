@@ -47,20 +47,8 @@ import {
     switch (action.type) {
       case "FIGURES_FETCH_SUCCESS" :
       {
-        return Object.assign({} ,state, { info : action.figures })
-      }      
-
-      case ADD_FIGURE:
-      return  Object.assign({} ,state, { info : state.info.concat(
-       
-        { 
-          value: Math.round(action.value * 100) / 100 ,
-          id : state.info.reduce((maxId, figure) => Math.max(figure.id, maxId), -1) + 1,
-          label : action.text,
-          recycle: true,
-          sides: action.sides
-        }
-      ).sort(sortDefault) });          
+        return Object.assign({} ,state, { info : action.figures.sort(sortDefault) })
+      }        
       
       case RECYCLE:
       {    
@@ -90,10 +78,10 @@ import {
         )   
       }
 
-      case DELETE_FIGURE:
+      /* case DELETE_FIGURE:
         {    
             return Object.assign({}, state, {info:state.info.filter(figure => figure.id !== action.id)})  
-        }
+        } */
 
       case SORT_BY_VALUE:
         {              

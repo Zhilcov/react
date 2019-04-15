@@ -42,7 +42,7 @@ class FigureItem extends React.Component{
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Button className =  "btn btn-danger" onClick={()=>{deleteFigure(figure.id)}}>Удалить</Button>
+                        <Button className =  "btn btn-danger" onClick={()=>{deleteFigure(`http://localhost:3003/delFigure/${figure.id}`)}}>Удалить</Button>
                    </Modal.Body>
                     </Modal>  
             </tr>

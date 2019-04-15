@@ -18,14 +18,16 @@ class Square extends React.Component{
     
      
       handleChange(event) {
-        var value = event.target.value     
+        var value = event.target.value
+        this.setState({isValid:true})
+        this.setState({a:value });          
         if(+value > 0){
-          this.setState({isValid:true})    
+            
         }else {
           this.setState({isValid:false})
          
         }
-        this.setState({a:value });   
+        
       }
 
       handleSubmit(event,id) {
@@ -35,11 +37,11 @@ class Square extends React.Component{
         var obj = new Figures.Figure(a);        
         if(this.state.isValid === true){
           if(id === null){
-            this.props.addFigures("square" , obj.calcArea(),[a]);
+            this.props.addFigures(`http://localhost:3003/` , "square" , obj.calcArea(),[a]);
           }else{
             this.props.editFigures(id , obj.calcArea(),[a]);
           }
-          this.setState({ redirectToNewPage: true,a:"" })
+          this.setState({ redirectToNewPage: true,a:"0" })
           this.props.show();
         }
       }

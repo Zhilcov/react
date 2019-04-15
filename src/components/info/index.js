@@ -16,6 +16,11 @@ class Info extends React.Component {
     componentDidMount() {
         this.props.actions.getFigures(`http://localhost:3003/`)
     }
+    componentDidUpdate(prevProps) {
+        if(this.props.wasUpdated !== prevProps.wasUpdated) {
+            this.props.actions.getFigures(`http://localhost:3003/`)
+        }
+    }
     handleChange(e){
         var id = e.target.id;        
         switch (id) {

@@ -9,6 +9,9 @@ const mapStateToProps = (state,ownProps) => ({
     id: state.todos.id,
     lable : state.todos.lable,
     state : state.appearance,
+    hasErrored: state.figuresHasErrored,
+    isLoading: state.figuresIsLoading,
+    wasUpdated: state.figuresUpdated,
     ownProps
   })
   
