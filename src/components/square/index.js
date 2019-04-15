@@ -8,8 +8,9 @@ class Square extends React.Component{
         super(props);
         this.state = {
             a: "0",
-            isValid:' ',
-            redirectToNewPage: false
+            isValid:'',
+            redirectToNewPage: false,
+            idd: 0
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,19 +43,26 @@ class Square extends React.Component{
             this.props.editFigures(`http://localhost:3003/${id}`, obj.calcArea(),[a]);
           }
           this.setState({ redirectToNewPage: true,a:"0" })
-          this.props.show();
+          this.props.show(`http://localhost:3003/showRecycle/${id}`);
         }
       }
       componentDidMount() {
           this.setState({a:new URLSearchParams(this.props.location.search).get("a")})
       }
+      componentWillUnmount(){
+        console.log(this.state.idd);
+        this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
+      }
       fillInputs(){
-        this.setState({a:new URLSearchParams(this.props.location.search).get("a")});
+        var a= new URLSearchParams(this.props.location.search).get("a")
+        if(a){
+          this.setState({a:a});
+        }
       }
       render(){
         if (this.state.redirectToNewPage) {
           this.setState({ redirectToNewPage: false })
-          this.setState({ isValid:  " "});
+          this.setState({ isValid:  ""});
           return (
             <Redirect to="/square"/>
             )
@@ -65,6 +73,10 @@ class Square extends React.Component{
           isValid ? classtext = 'is-valid': classtext ='is-invalid'
         }      
         var id = new URLSearchParams(this.props.location.search).get("id")
+          if(id !== this.state.idd){
+            this.setState({idd:id})
+            this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
+          }  
         return (
           <Form onSubmit={e => this.handleSubmit(e,id)} onMouseEnter={this.fillInputs}
           >
@@ -73,9 +85,9 @@ class Square extends React.Component{
                 <Form.Control
                   className ={classtext}
                   required
-                  type="text"
+                  type="number"
                   placeholder="Сторона"
-                  value = {this.state.a || " "}
+                  value = {this.state.a || ' '}
                   onChange = {this.handleChange}
                 />
                 <Form.Control.Feedback>Данные корректны</Form.Control.Feedback>

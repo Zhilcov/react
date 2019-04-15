@@ -3,9 +3,6 @@ import * as types from '../constants'
 export const sortByValue = (value) => ({ type: types.SORT_BY_VALUE, value })
 export const sortByName = (name) => ({ type: types.SORT_BY_NAME, name})
 export const sort = (sort) => ({ type: types.SORT_DEFAULT, sort})
-export const showRecycle = () => ({ type: types.RECYCLE_BIN})
-export const hideRecycle = (id) => ({ type: types.RECYCLE, id})
-
 export const figuresHasErrored = (bool) => ({type: "FIGURES_HAS_ERRORED", hasErrored: bool})
 export const figuresIsLoading = (bool) => ({type: "FIGURES_IS_LOADING",isLoading: bool})
 export const figuresFetchSuccess = (figures) => ({type: "FIGURES_FETCH_SUCCESS",figures})
@@ -75,4 +72,26 @@ export const editFigure = (url,value,sides) => {
             })
             .catch((err)=>{console.log(err)})
     }
-}    
+}   
+
+export const hideRecycle = (url) => {
+    return dispatch => {
+        dispatch(figuresIsLoading(true));
+        fetch(url)
+            .then(response => {
+                dispatch(figuresUpdated(true));
+            })
+            .catch((err)=>{console.log(err)})
+    }
+}
+
+export const showRecycle = (url) => {
+    return dispatch => {
+        dispatch(figuresIsLoading(true));
+        fetch(url)
+            .then(response => {
+                dispatch(figuresUpdated(true));
+            })
+            .catch((err)=>{console.log(err)})
+    }
+}

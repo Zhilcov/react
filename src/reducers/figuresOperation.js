@@ -1,9 +1,7 @@
 import {
     SORT_BY_VALUE,
     SORT_BY_NAME,
-    SORT_DEFAULT,
-    RECYCLE,
-    RECYCLE_BIN
+    SORT_DEFAULT
   } from '../constants'
   const initialState = {
     info : [],
@@ -47,33 +45,7 @@ import {
         return Object.assign({} ,state, { info : action.figures.sort(sortDefault) })
       }        
       
-      case RECYCLE:
-      {    
-        return Object.assign({}, state, {info:state.info.map(figure => {
-          if (figure.id == action.id) {
-            return {
-              ...figure,
-              recycle: false
-            }
-          }
-          return figure
-        })}
-        ) 
-      }
-      
-      case RECYCLE_BIN:
-      {    
-        return Object.assign({}, state, {info:state.info.map(figure => {
-          if (!figure.recycle) {
-            return {
-              ...figure,
-              recycle: true
-            }
-          }
-          return figure
-        })}
-        )   
-      }
+  
       case SORT_BY_VALUE:
         {              
             return Object.assign({} , state, {info : state.info.sort(sortByValue), value : !action.value })          

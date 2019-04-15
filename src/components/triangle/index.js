@@ -17,7 +17,8 @@ class Triangle extends React.Component{
             bIsValid: '',
             cIsValid: '',
             isSet : true,
-            redirectToNewPage: false
+            redirectToNewPage: false,
+            idd:0
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -75,8 +76,8 @@ class Triangle extends React.Component{
               }else{
                 this.props.editFigures(`http://localhost:3003/${id}`, obj.calcArea(),[a,b,c]);
               }
-              this.setState({ redirectToNewPage: true , a:"0",b:"0",c:"0" })
-              this.props.show(); 
+              this.setState({ redirectToNewPage: true , a:"0",b:"0",c:"0" })              
+              this.props.show(`http://localhost:3003/showRecycle/${id}`);
            }else this.setState({isSet:false});
               
       }
@@ -97,6 +98,9 @@ class Triangle extends React.Component{
           this.setState({a:a[0],b:a[1],c:a[2]});
         }
       }
+      componentWillUnmount(){
+        this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
+      }
       fillInputs(){
         var a= new URLSearchParams(this.props.location.search).get("a")
         if(a){
@@ -113,7 +117,11 @@ class Triangle extends React.Component{
             )
         }
         const { aIsValid,bIsValid,cIsValid } = this.state;
-        var id = new URLSearchParams(this.props.location.search).get("id")           
+        var id = new URLSearchParams(this.props.location.search).get("id")
+          if(id !== this.state.idd){
+            this.setState({idd:id})
+            this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
+        }           
         return (
           <Form onSubmit={e => this.handleSubmit(e,id)} onMouseEnter={this.fillInputs}
           >              

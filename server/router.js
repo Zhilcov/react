@@ -36,5 +36,27 @@ module.exports = (app) => {
                 res.send(figure);
               });
           });
-      });  
+      });
+
+    app.get("/hideRecycle/:id", (req,res)=>{
+      FigureModel.findOneAndUpdate({id: req.params.id}, {recycle:false})
+      .then(() => {
+        FigureModel.findOne({id: req.params.id})
+          .then(figure => {
+            res.send(figure);
+          });
+      });
+    })
+    
+    app.get("/showRecycle/:id", (req,res)=>{
+      if(req.params.id){
+        FigureModel.findOneAndUpdate({id: req.params.id}, {recycle:true})
+        .then(() => {
+          FigureModel.findOne({id: req.params.id})
+            .then(figure => {
+              res.send(figure);
+            });
+        });
+      }  
+    }) 
 }

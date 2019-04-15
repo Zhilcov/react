@@ -13,7 +13,8 @@ class Rectangle extends React.Component{
             b: "0",
             aIsValid: '',
             bIsValid: '',
-            redirectToNewPage: false
+            redirectToNewPage: false,
+            idd:0
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -64,7 +65,7 @@ class Rectangle extends React.Component{
                 this.props.editFigures(`http://localhost:3003/${id}`, obj.calcArea(),[a,b] );
               }
               this.setState({ redirectToNewPage: true, a:"0",b:"0" })
-              this.props.show();
+              this.props.show(`http://localhost:3003/showRecycle/${id}`);
             }
       }
       componentDidMount(){
@@ -73,7 +74,9 @@ class Rectangle extends React.Component{
           a = a.split(",")
           this.setState({a:a[0],b:a[1]});
         }
-        
+      }
+      componentWillUnmount(){
+        this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
       }              
       render(){
         if (this.state.redirectToNewPage) {
@@ -92,6 +95,10 @@ class Rectangle extends React.Component{
           bIsValid ? classtextB = 'is-valid': classtextB ='is-invalid'
         }       
         var id = new URLSearchParams(this.props.location.search).get("id")
+          if(id !== this.state.idd){
+            this.setState({idd:id})
+            this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
+        }  
         return (
           <Form onSubmit={e => this.handleSubmit(e,id)} onMouseEnter={this.fillInputs}
           >
