@@ -12,7 +12,8 @@ const mapStateToProps = (state,ownProps) => ({
     hasErrored: state.figuresHasErrored,
     isLoading: state.figuresIsLoading,
     wasUpdated: state.figuresUpdated,
-    ownProps
+    /* page: state.routing.locationBeforeTransitions ? Number(state.routing.locationBeforeTransitions.query.page) : 1,
+    */ router : state.routing
   })
   
 const mapDispatchToProps = dispatch => ({

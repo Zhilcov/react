@@ -18,7 +18,7 @@ class FigureItem extends React.Component{
    
     render() {
         let smClose = () => this.setState({ smShow: false });
-        const { figure , deleteFigure, hideRecycle,showRecycle  } = this.props;
+        const { figure , deleteFigure, hideRecycle} = this.props;
     
         return (
             <tr>
@@ -26,7 +26,6 @@ class FigureItem extends React.Component{
                 <td>{figure.value}</td>
                 <td>{figure.label}</td>
                 <td>{figure.recycle ? <Link to ={{ pathname: `/${figure.label}`, search: `?id=${figure.id}&a=${figure.sides}` }}><i  onClick = {()=>{
-                    /* showRecycle(); */
                     hideRecycle(`http://localhost:3003/hideRecycle/${figure.id}`);
                 }} className="fas fa-edit"></i></Link> : ''}</td>
                 <td>{figure.recycle ? <i className="fas fa-trash-alt" onClick = {this.smShow}  ></i>  : ''}</td>

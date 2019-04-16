@@ -1,6 +1,8 @@
 import React from "react";
 import FigureItem from "../FigureItem"
 import './info.css';
+import Pagination from 'react-paginate';
+import {push} from "react-router-redux"
 class Info extends React.Component {
     
     constructor(props) {
@@ -8,9 +10,12 @@ class Info extends React.Component {
         this.state = {
             hideName: true,
             hideValue: true,
-            hideId: false
+            hideId: false,
+            activePage: 1
+
         };
-        this.handleChange = this.handleChange.bind(this);    
+        this.handleChange = this.handleChange.bind(this);  
+        this.handlePageChange = this.handlePageChange.bind(this);  
     }
 
     componentDidMount() {
@@ -20,6 +25,11 @@ class Info extends React.Component {
         if(this.props.wasUpdated !== prevProps.wasUpdated) {
             this.props.actions.getFigures(`http://localhost:3003/`)
         }
+    }
+    handlePageChange(pageNumber) {
+        var page = pageNumber.selected + 1
+        console.log(page);
+        this.setState({activePage: page});
     }
     handleChange(e){
         var id = e.target.id;        
@@ -40,11 +50,15 @@ class Info extends React.Component {
 
     render(){    
         const {figures, actions , value , lable, id} = this.props        
-        
-                                                                             
+        const perPage = 5;
+        const pages = Math.ceil(figures.info.length / perPage)  
+        const currentPage = this.state.activePage
+        const startOffset = (currentPage - 1) * perPage;    
+        let startCount = 0;                                                                     
         return(
             <div className ="col col-md-12">
                     <h1 className ="info">Информация</h1>
+                    
                     <table id="grid" className="table">
                         <thead className="thead-light">
                         <tr>
@@ -66,11 +80,38 @@ class Info extends React.Component {
                         </thead>
                         <tbody>
                         {    
-                            figures.info.map(figureItem => 
-                            <FigureItem key={figureItem.id} figure={figureItem} {...actions}/>)
+                            figures.info.map((figureItem,index) =>{
+                                if(index >= startOffset && startCount < perPage ){
+                                    startCount++;
+                                    return(
+                                        <FigureItem key={figureItem.id} figure={figureItem} {...actions}/>
+                                    )
+                                }
+                            }
+                            )
+                            
                         } 
                         </tbody>
                     </table>
+                    <Pagination
+                        previousLabel={<i class="fas fa-arrow-left"></i>}
+                        previousClassName = {'page-item'}
+                        previousLinkClassName={'page-link'}
+                        nextLabel={<i class="fas fa-arrow-right"></i>}
+                        nextClassName={'page-item'}
+                        nextLinkClassName={'page-link'}
+                        breakLabel={'...'}
+                        breakClassName={'break-me'}
+                        pageCount={pages}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={this.handlePageChange}
+                        containerClassName={'pagination justify-content-center'}
+                        subContainerClassName={'pages pagination'}
+                        activeClassName={'active'}
+                        pageClassName={'page-item'}
+                        pageLinkClassName={"page-link"}
+                        />
             </div>
         )
     }

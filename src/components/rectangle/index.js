@@ -88,6 +88,7 @@ class Rectangle extends React.Component{
         }
         const { aIsValid,bIsValid } = this.state;
         var classtextA = "",classtextB = "";
+        
         if(typeof(aIsValid) === "boolean"){
           aIsValid ? classtextA = 'is-valid': classtextA ='is-invalid'
         }

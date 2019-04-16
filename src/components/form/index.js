@@ -6,7 +6,7 @@ class Form extends React.Component {
         return(
             <div className="container">
                                 
-                <Input/>
+                <Input {...this.props}/>
             </div>
         )
     }
