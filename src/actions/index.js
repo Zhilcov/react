@@ -1,5 +1,5 @@
 import * as types from '../constants'
-
+import axios from "axios"
 export const sortByValue = (value) => ({ type: types.SORT_BY_VALUE, value })
 export const sortByName = (name) => ({ type: types.SORT_BY_NAME, name})
 export const sort = (sort) => ({ type: types.SORT_DEFAULT, sort})
@@ -7,7 +7,7 @@ export const figuresHasErrored = (bool) => ({type: "FIGURES_HAS_ERRORED", hasErr
 export const figuresIsLoading = (bool) => ({type: "FIGURES_IS_LOADING",isLoading: bool})
 export const figuresFetchSuccess = (figures) => ({type: "FIGURES_FETCH_SUCCESS",figures})
 export const figuresUpdated = (bool) => ({ type: "FIGURES_WAS_UPDATED", bool})
-
+export const success = (user) => { return { type: "REGISTER_SUCCESS", user } }
 export const getFigures = (url) => {
     return dispatch => {
         dispatch(figuresIsLoading(true));
@@ -94,4 +94,19 @@ export const showRecycle = (url) => {
             })
             .catch((err)=>{console.log(err)})
     }
+}
+
+export const register = (username,password) => {
+    return dispatch => {
+        axios.post('http://localhost:3003/register', {
+            username: username,
+            password: password
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+}
 }

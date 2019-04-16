@@ -1,4 +1,20 @@
 const FigureModel = require('./models/figure');
+const UsersModel = require('./models/user');
+const config = require('./config');
+const _ = require('lodash');
+const bcrypt = require('bcryptjs'); 
+const express = require('express');
+
+const jwt = require('jsonwebtoken');
+
+
+function createToken (body) {
+  return jwt.sign(
+      body,
+      config.jwt.secretOrKey,
+      {expiresIn: config.expiresIn}
+  );
+}
 
 module.exports = (app) => {
     app.get("/", (req,res)=>{
@@ -69,5 +85,28 @@ module.exports = (app) => {
             });
         });
       }  
-    }) 
+    })
+    
+    app.post('/register', async (req, res) => {
+      try {
+          let user = await UsersModel.findOne({username: {$regex: _.escapeRegExp(req.body.username), $options: "i"}}).lean().exec();
+          if(user != void(0)) return res.status(400).send({message: "User already exist"});
+
+          user = await UsersModel.create({
+              username: req.body.username,
+              password: req.body.password
+          });          
+          const token = createToken({id: user._id, username: user.username});
+
+          res.cookie('token', token, {
+              httpOnly: true
+          });
+
+          res.status(200).send({message: "User created."});
+
+      } catch (e) {
+          console.error("E, register,", e);
+          res.status(500).send({message: "some error"});
+      }
+  });
 }

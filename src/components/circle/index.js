@@ -26,7 +26,6 @@ class Circle extends React.Component{
         }else {
           this.setState({isValid:false})
         }
-        
       }
 
       handleSubmit(event,id) {
