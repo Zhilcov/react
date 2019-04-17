@@ -99,7 +99,9 @@ class Triangle extends React.Component{
         }
       }
       componentWillUnmount(){
-        this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
+        if(this.state.idd !== null){
+          this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
+        }
       }
       fillInputs(){
         var a= new URLSearchParams(this.props.location.search).get("a")

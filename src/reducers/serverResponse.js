@@ -24,3 +24,12 @@ export function figuresUpdated(state = false, action) {
             return state;
     }
 }
+
+export function authorizRequests(state = false, action){
+    switch (action.type) {
+        case "BAD_REQUEST":
+            return action.bool
+        default:
+            return state;
+    }
+}

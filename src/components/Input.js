@@ -11,8 +11,8 @@ import Info from "../container/info";
 class Input extends React.Component{
     render(){
         const {addFigure , editFigure, showRecycle,routing } = this.props  
-                     
-        console.log(this.props);              
+         /*             
+        console.log(this.props); */              
         return (
                 <div className="col col-md-12">
                    <div className="row input">

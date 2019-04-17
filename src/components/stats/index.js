@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Pie } from 'react-chartjs';
 import TableForStats from "../tableForStats/tableForStats"
 import "./stats.css"
+import Header from "../../container/header"
+
 class Stats extends Component {
     componentWillUnmount(){
         this.props.actions.showRecycle()
@@ -29,6 +31,7 @@ class Stats extends Component {
           });     
         return(
          <div className="container">
+            <Header/>        
              <div className="col col-md-12 text-center">
                 <h1>Статистика</h1>
                 <div className="row">

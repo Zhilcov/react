@@ -1,19 +1,20 @@
 import React from "react"
 
 import { Link } from 'react-router-dom';
-import {Form, Button,InputGroup } from "react-bootstrap"
-import axios from "axios"
+import {Form, Button,Alert } from "react-bootstrap"
 
 class RegistrationPage extends React.Component {
     constructor(props) {
         super(props);
     
         this.state = { 
-            validated: false,
+            matched: true,
             username:"",
-            password:""            
+            password:"",
+            repeatedPass:""            
         };
         this.handleChange = this.handleChange.bind(this);
+        this.checkMatchPassworp = this.checkMatchPassworp.bind(this);
     }
     componentDidMount(){
       console.log(this.props);
@@ -21,39 +22,56 @@ class RegistrationPage extends React.Component {
     
     handleChange(event){
         var id = event.target.id;
-        var valueA, valueB;
-        if(id === "a"){
-          valueA = event.target.value
-          this.setState({username: valueA}); 
-        }else{
-          valueB = event.target.value
-          this.setState({password: valueB}); 
+        var value
+        switch (id) {
+            case "a":
+                value = event.target.value
+                this.setState({username: value}); 
+            break;
+            case "b":
+                value = event.target.value
+                this.setState({password: value}); 
+            break;
+            case "c":
+                value = event.target.value
+                this.setState({repeatedPass: value}); 
+            break;
+
+            default:
+                break;
         }
+    
     }
 
-    handleSubmit(event) {
-        const form = event.currentTarget;
-      
-          event.preventDefault();
-          event.stopPropagation();
-      
-        this.setState({ validated: true });
-        this.props.register(this.state.username, this.state.password);
+    checkMatchPassworp(){
+        
     }
-    
+
+    handleSubmit(event) {         
+        event.preventDefault();
+        event.stopPropagation();
+        if(this.state.password === this.state.repeatedPass){
+            this.setState({matched:true})
+            this.props.register(this.state.username, this.state.password)
+        }else this.setState({matched:false})
+    }
+    componentWillUnmount(){
+        this.props.badRequestLogin(false);
+    }
     render(){
         return(
             <div className="container">
-                <div className="row">
-                    <div className="col col-md-4 offset-2">
+           
+                <div className="row login">
+                    <div className="col col-md-4 offset-4">
+                    { this.props.autoriz ? <Alert variant="danger"> Пользователь уже сущесвтует </Alert> : " "}
                         <Form
-                            noValidate
-                            validated={this.state.validated}
                             onSubmit={e => this.handleSubmit(e)}
                         >
                     <Form.Group  md="4">
                         <Form.Label>Имя пользователя</Form.Label>
                         <Form.Control
+                        className ={this.props.autoriz ? "is-invalid" : " "}
                         required
                         type="text"
                         placeholder="Имя пользователя"
@@ -61,7 +79,7 @@ class RegistrationPage extends React.Component {
                         onChange = {this.handleChange}
                         id="a"
                         />
-                        <Form.Control.Feedback>Подходит</Form.Control.Feedback>
+                      
                     </Form.Group>
                     <Form.Group  md="4">
                         <Form.Label>Пароль</Form.Label>
@@ -81,7 +99,11 @@ class RegistrationPage extends React.Component {
                         type="password"
                         placeholder="Подтверждение пароля"
                         defaultValue=""
-                        />                            
+                        onChange = {this.handleChange}
+                        id = "c"
+                        />       
+                        {this.state.matched ?  "" :
+                         <Form.Control.Feedback type = "invalid">Пароли не совпадают</Form.Control.Feedback> }                                         
                     </Form.Group>
                     <Button type="submit">Регистрация</Button>
                     <Link to="/login" className="btn btn-link">Отмена</Link>

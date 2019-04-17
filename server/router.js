@@ -4,7 +4,7 @@ const config = require('./config');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs'); 
 const express = require('express');
-
+var checkAuth = require("./checkAuthoriz");
 const jwt = require('jsonwebtoken');
 
 
@@ -17,15 +17,17 @@ function createToken (body) {
 }
 
 module.exports = (app) => {
+
     app.get("/", (req,res)=>{
-        FigureModel.find({})
-            .then(figures => {
-            res.send(figures);
-            })
-            .catch((err)=>{
-              console.log(err);
-            })
+      FigureModel.find({})
+      .then(figures => {
+      res.send(figures);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
     })
+
     app.post("/", (req, res)=>{
         FigureModel.find().sort({id:-1}).limit(1)
          .then((id)=>{
@@ -34,6 +36,8 @@ module.exports = (app) => {
             .then((figure)=>{
                 res.send(figure)
             })
+            .catch((err)=>console.log(err)
+            )
         })
         .catch(()=>{
           var count = 0
@@ -61,7 +65,8 @@ module.exports = (app) => {
             FigureModel.findOne({id: req.params.id})
               .then(figure => {
                 res.send(figure);
-              });
+              })
+              .catch((err)=>console.log(err))
           });
       });
 
@@ -76,37 +81,58 @@ module.exports = (app) => {
     })
     
     app.get("/showRecycle/:id", (req,res)=>{
-      if(req.params.id){
+      if(req.params.id !==  null){
         FigureModel.findOneAndUpdate({id: req.params.id}, {recycle:true})
         .then(() => {
           FigureModel.findOne({id: req.params.id})
             .then(figure => {
               res.send(figure);
             });
-        });
+        })
+        .catch((err)=>console.log(err))
+      }else{
+        res.status(400).send({});
       }  
     })
     
+
     app.post('/register', async (req, res) => {
       try {
           let user = await UsersModel.findOne({username: {$regex: _.escapeRegExp(req.body.username), $options: "i"}}).lean().exec();
-          if(user != void(0)) return res.status(400).send({message: "User already exist"});
+          if(user != void(0)) return res.status(203).send({message: "User already exist"});
 
           user = await UsersModel.create({
               username: req.body.username,
               password: req.body.password
           });          
           const token = createToken({id: user._id, username: user.username});
-
+/* 
           res.cookie('token', token, {
               httpOnly: true
           });
-
-          res.status(200).send({message: "User created."});
+ */        
+          res.status(200).send({message: "User created.", token:token,user:user.username});
 
       } catch (e) {
           console.error("E, register,", e);
           res.status(500).send({message: "some error"});
       }
   });
+
+
+
+      app.post('/login', async (req, res) => {
+        try {
+            let user = await UsersModel.findOne({username: {$regex: _.escapeRegExp(req.body.username), $options: "i"}}).lean().exec();
+            if(user != void(0) && bcrypt.compareSync(req.body.password, user.password)) {
+                const token = createToken({id: user._id, username: user.username});
+                
+                res.status(200).send({message: "User login success.", token:token,user:user.username});
+            } else res.status(203).send({message: "User not exist or password not correct"});
+        } catch (e) {
+            console.error("E, login,", e);
+            res.status(500).send({message: "some error"});
+        }
+    });
+    
 }

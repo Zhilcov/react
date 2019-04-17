@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import todos from './figuresOperation'
-import {figuresHasErrored, figuresIsLoading, figuresUpdated} from "./serverResponse"
+import {figuresHasErrored, figuresIsLoading, figuresUpdated, authorizRequests} from "./serverResponse"
 import { routerReducer } from 'react-router-redux';
 
 const rootReducer = combineReducers({
@@ -8,7 +8,8 @@ const rootReducer = combineReducers({
   todos,
   figuresHasErrored,
   figuresIsLoading,
-  figuresUpdated
+  figuresUpdated,
+  authorizRequests
 })
 
 export default rootReducer

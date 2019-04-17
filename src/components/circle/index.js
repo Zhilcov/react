@@ -49,7 +49,9 @@ class Circle extends React.Component{
         this.setState({a:new URLSearchParams(this.props.location.search).get("a")});
       }
       componentWillUnmount(){
-        this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
+          if(this.state.idd !== null){
+          this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
+        }
       }
       fillInputs(){
         var a= new URLSearchParams(this.props.location.search).get("a")
@@ -73,7 +75,9 @@ class Circle extends React.Component{
       var id = new URLSearchParams(this.props.location.search).get("id")
       if(id !== this.state.idd){
         this.setState({idd:id})
-        this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
+        
+          this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
+        
       }          
       return (
         <Form onSubmit={e => this.handleSubmit(e,id)} onMouseEnter={this.fillInputs}>

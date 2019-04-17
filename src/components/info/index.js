@@ -2,7 +2,6 @@ import React from "react";
 import FigureItem from "../FigureItem"
 import './info.css';
 import Pagination from 'react-paginate';
-import {push} from "react-router-redux"
 class Info extends React.Component {
     
     constructor(props) {
@@ -94,10 +93,10 @@ class Info extends React.Component {
                         </tbody>
                     </table>
                     <Pagination
-                        previousLabel={<i class="fas fa-arrow-left"></i>}
+                        previousLabel={<i className="fas fa-arrow-left"></i>}
                         previousClassName = {'page-item'}
                         previousLinkClassName={'page-link'}
-                        nextLabel={<i class="fas fa-arrow-right"></i>}
+                        nextLabel={<i className="fas fa-arrow-right"></i>}
                         nextClassName={'page-item'}
                         nextLinkClassName={'page-link'}
                         breakLabel={'...'}

@@ -1,10 +1,12 @@
 import React from 'react';
 import Statistics from './container/stats'
-import {Route, Switch, Redirect}  from 'react-router-dom';
+import {Switch, Redirect}  from 'react-router-dom';
 import Form from "./components/form";
 import PrivateRoute from "./components/privateRoute"
-import LoginPage from "./components/loginPage"
+import LoginPage from "./container/login"
 import Registraion from "./container/register"
+import PrivateRouteForLogged from "./components/privateRouteForLogged"
+
 class App extends React.Component {    
     render(){
       return (
@@ -17,8 +19,8 @@ class App extends React.Component {
                   <PrivateRoute  path="/square" component={Form}/>
                   <PrivateRoute  path="/rectangle" component={Form}/>
                   <PrivateRoute  path="/triangle" component={Form}/>
-                  <Route  path="/login" component={LoginPage}/>
-                  <Route  path="/registraion" component={Registraion}/>
+                  <PrivateRouteForLogged  path="/login" component={LoginPage}/>
+                  <PrivateRouteForLogged  path="/registraion" component={Registraion}/>
                   <Redirect to = "/"/>
                 </Switch>
         </div>

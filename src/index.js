@@ -11,7 +11,6 @@ import * as serviceWorker from './serviceWorker';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createBrowserHistory } from 'history';
 import { syncHistoryWithStore } from 'react-router-redux';
-import Header from "./components/header"
 
 
 const store = createStore(reducer,composeWithDevTools(applyMiddleware(thunk)))
@@ -24,7 +23,6 @@ ReactDOM.render(
     <Provider store={store}>
       <Router history={history}>
               <Suspense fallback = {<h2> loading...</h2>}>
-                <Header/>
                 <App/>
              </Suspense>
       </Router>
@@ -36,3 +34,4 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+export default history

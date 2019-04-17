@@ -1,5 +1,6 @@
 import * as types from '../constants'
 import axios from "axios"
+import history from "../index"
 export const sortByValue = (value) => ({ type: types.SORT_BY_VALUE, value })
 export const sortByName = (name) => ({ type: types.SORT_BY_NAME, name})
 export const sort = (sort) => ({ type: types.SORT_DEFAULT, sort})
@@ -8,6 +9,7 @@ export const figuresIsLoading = (bool) => ({type: "FIGURES_IS_LOADING",isLoading
 export const figuresFetchSuccess = (figures) => ({type: "FIGURES_FETCH_SUCCESS",figures})
 export const figuresUpdated = (bool) => ({ type: "FIGURES_WAS_UPDATED", bool})
 export const success = (user) => { return { type: "REGISTER_SUCCESS", user } }
+export const badRequestLogin = (bool) => ({type:"BAD_REQUEST", bool}) 
 export const getFigures = (url) => {
     return dispatch => {
         dispatch(figuresIsLoading(true));
@@ -86,14 +88,15 @@ export const hideRecycle = (url) => {
 }
 
 export const showRecycle = (url) => {
-    return dispatch => {
-        dispatch(figuresIsLoading(true));
-        fetch(url)
-            .then(response => {
-                dispatch(figuresUpdated(true));
-            })
-            .catch((err)=>{console.log(err)})
-    }
+        return dispatch => {
+            dispatch(figuresIsLoading(true));
+            fetch(url)
+                .then(response => {
+                    dispatch(figuresUpdated(true));
+                })
+             .catch((err)=>{console.log(err)})
+   }
+    
 }
 
 export const register = (username,password) => {
@@ -103,10 +106,44 @@ export const register = (username,password) => {
             password: password
           })
           .then(function (response) {
-            console.log(response);
+            if(response.status === 200){
+                localStorage.setItem('user', JSON.stringify(response.data.token));
+                history.push('/')
+                dispatch(badRequestLogin(false))
+            }else if(response.status === 203){
+                console.log("User already exist");
+                dispatch(badRequestLogin(true))
+            }
           })
           .catch(function (error) {
             console.log(error);
           });
+    }
 }
+
+export const login = (username,password) => {
+    return dispatch => {
+        axios.post('http://localhost:3003/login', {
+            username: username,
+            password: password
+          })
+          .then(function (response) {
+            if(response.status === 200){
+                localStorage.setItem('user', response.data.token);
+                localStorage.setItem('username', response.data.user);
+                history.push('/')
+                dispatch(badRequestLogin(false))
+            }else if(response.status === 203){
+                console.log("User not exist or password not correct");
+                dispatch(badRequestLogin(true))
+            }
+          })
+          .catch(function (response) {
+            console.log(response+ " sd");
+          });
+    }
+}
+
+export const logout = () => {
+   
 }

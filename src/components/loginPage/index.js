@@ -1,59 +1,90 @@
 import React from "react"
 
 import { Link } from 'react-router-dom';
-import {Form, Button,InputGroup } from "react-bootstrap"
-
+import {Form, Button,Alert  } from "react-bootstrap"
+import "./index.css"
 
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
     
-        this.state = { validated: false };
+        this.state = { 
+            validated: " ",
+            username:"",
+            password:""    
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.addClassTextToInput = this.addClassTextToInput.bind(this);
     }
-    
-    handleSubmit(event) {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
+
+    addClassTextToInput(isValid){
+        var classtext
+        if(typeof(isValid) === "boolean"){
+          isValid ?  classtext = 'is-valid': classtext ='is-invalid'
+          return classtext
+        }else return " "
+      }
+
+    handleChange(event){
+        var id = event.target.id;
+        var valueA, valueB;
+        if(id === "a"){
+          valueA = event.target.value
+          this.setState({username: valueA}); 
+        }else{
+          valueB = event.target.value
+          this.setState({password: valueB}); 
         }
-        this.setState({ validated: true });
     }
-    
+
+    handleSubmit(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.props.login(this.state.username, this.state.password);
+    }
+    componentWillUnmount(){
+        this.props.badRequestLogin(false);
+    }
     render(){
+        
         return(
             <div className="container">
-                <div className="row">
-                    <div className="col col-md-4 offset-2">
-                        <Form
-                            noValidate
-                            validated={this.state.validated}
-                            onSubmit={e => this.handleSubmit(e)}
-                        >
-                    <Form.Group  md="4" controlId="validationCustom01">
-                        <Form.Label>Имя пользователя</Form.Label>
-                        <Form.Control
-                        required
-                        type="text"
-                        placeholder="Имя пользователя"
-                        defaultValue=""
-                        />
-                        <Form.Control.Feedback>Подходит</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group  md="4" controlId="validationCustom02">
-                        <Form.Label>Пароль</Form.Label>
-                        <Form.Control
-                        required
-                        type="password"
-                        placeholder="Пароль"
-                        defaultValue=""
-                        />
-                        <Form.Control.Feedback>Подходит</Form.Control.Feedback>
-                        
-                    </Form.Group>
-                    <Button type="submit">Вход</Button>
+                <div className="row login">
+                    <div className="col col-md-4 offset-4">
+
+                    { this.props.autoriz ? <Alert variant="danger"> Неверный логин или пароль </Alert> : " "}
+
+                    <Form onSubmit={e => this.handleSubmit(e)}>
+                        <Form.Group  md="4" >
+                            <Form.Label>Имя пользователя</Form.Label>
+                            <Form.Control
+                            className ={this.props.autoriz ? "is-invalid" : " "}
+                            required
+                            type="text"
+                            placeholder="Имя пользователя"
+                            defaultValue=""
+                            id="a"
+                            onChange = {this.handleChange}
+                            />
+                            <Form.Control.Feedback>Подходит</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group  md="4" >
+                            <Form.Label>Пароль</Form.Label>
+                            <Form.Control
+                            className ={this.props.autoriz ? "is-invalid" : " "}
+                            required
+                            type="password"
+                            placeholder="Пароль"
+                            defaultValue=""
+                            id="b"
+                            onChange = {this.handleChange}
+                            />
+                            <Form.Control.Feedback>Подходит</Form.Control.Feedback>
+                            
+                        </Form.Group>
+                        <Button type="submit">Вход</Button>
                     <Link to="/registraion" className="btn btn-link">Регистрация</Link>
-                </Form>
+                 </Form>
                     </div>
                 </div>
             </div>

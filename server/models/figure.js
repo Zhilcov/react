@@ -14,4 +14,4 @@ const FigureSchema = new Schema({
     collection: "figures"
 });
 
-module.exports = mongoose.model('MessageModel', FigureSchema);
+module.exports = mongoose.model('FigureSchema', FigureSchema);

@@ -76,7 +76,9 @@ class Rectangle extends React.Component{
         }
       }
       componentWillUnmount(){
-        this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
+          if(this.state.idd !== null){
+          this.props.show(`http://localhost:3003/showRecycle/${this.state.idd}`);
+          }
       }              
       render(){
         if (this.state.redirectToNewPage) {
