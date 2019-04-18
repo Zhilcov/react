@@ -65,6 +65,8 @@ class RegistrationPage extends React.Component {
                 <div className="row login">
                     <div className="col col-md-4 offset-4">
                     { this.props.autoriz ? <Alert variant="danger"> Пользователь уже сущесвтует </Alert> : " "}
+                    {this.state.matched ?  "" :
+                         <Alert variant="danger"> Пароли не совпадают </Alert> }
                         <Form
                             onSubmit={e => this.handleSubmit(e)}
                         >
@@ -101,9 +103,7 @@ class RegistrationPage extends React.Component {
                         defaultValue=""
                         onChange = {this.handleChange}
                         id = "c"
-                        />       
-                        {this.state.matched ?  "" :
-                         <Form.Control.Feedback type = "invalid">Пароли не совпадают</Form.Control.Feedback> }                                         
+                        />                                     
                     </Form.Group>
                     <Button type="submit">Регистрация</Button>
                     <Link to="/login" className="btn btn-link">Отмена</Link>

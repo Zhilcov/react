@@ -8,7 +8,8 @@ const FigureSchema = new Schema({
     value : {type:Number},
     id : {type:Number},
     label: {type:String},
-    recycle: {type:Boolean}
+    recycle: {type:Boolean},
+    ownUser:{type:String}
 }, {
     versionKey: false,
     collection: "figures"

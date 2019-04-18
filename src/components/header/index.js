@@ -13,6 +13,12 @@ class Header extends React.Component {
                         title={"Привет " + localStorage.getItem("username") }
                     >
                         <Dropdown.Item onClick={()=>{
+                                            history.push('/user/'+localStorage.getItem("username"))
+                                        }}> 
+                                         Мои фигуры
+                                     
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={()=>{
                                         localStorage.removeItem('user');
                                          history.push('/')
                                         }}> 

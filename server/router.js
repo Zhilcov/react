@@ -3,8 +3,6 @@ const UsersModel = require('./models/user');
 const config = require('./config');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs'); 
-const express = require('express');
-var checkAuth = require("./checkAuthoriz");
 const jwt = require('jsonwebtoken');
 
 
@@ -21,11 +19,23 @@ module.exports = (app) => {
     app.get("/", (req,res)=>{
       FigureModel.find({})
       .then(figures => {
-      res.send(figures);
+      res.send(figures);      
       })
+
       .catch((err)=>{
         console.log(err);
       })
+    })
+
+    app.get("/user/:name", async (req,res)=>{
+      
+      console.log("пришел запрос с именем "+req.params.name);
+      let user = await UsersModel.findOne({username: {$regex: _.escapeRegExp(req.params.name), $options: "i"}}).lean().exec();
+      
+         await FigureModel.find({ownUser:user._id})
+           .then((figures)=>{
+             res.send(figures)
+           }) 
     })
 
     app.post("/", (req, res)=>{
@@ -111,7 +121,7 @@ module.exports = (app) => {
               httpOnly: true
           });
  */        
-          res.status(200).send({message: "User created.", token:token,user:user.username});
+          res.status(200).send({message: "User created.", token:token,user:user.username,id :user._id });
 
       } catch (e) {
           console.error("E, register,", e);
@@ -127,7 +137,7 @@ module.exports = (app) => {
             if(user != void(0) && bcrypt.compareSync(req.body.password, user.password)) {
                 const token = createToken({id: user._id, username: user.username});
                 
-                res.status(200).send({message: "User login success.", token:token,user:user.username});
+                res.status(200).send({message: "User login success.", token:token,user:user.username,id :user._id });
             } else res.status(203).send({message: "User not exist or password not correct"});
         } catch (e) {
             console.error("E, login,", e);

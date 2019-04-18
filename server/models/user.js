@@ -7,7 +7,8 @@ const bcrtypt = require('bcryptjs');
 const UsersSchema = new Schema({
     username: {type: String},
     password: {type: String},
-    addedAt: {type: Date, default: Date.now}
+    addedAt: {type: Date, default: Date.now},
+    ownFigures : {type:Array , default: []}
 }, {
     versionKey: false,
     collection: "UsersCollection"

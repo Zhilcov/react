@@ -37,7 +37,12 @@ export const addFigure = (url,label,value,sides) => {
                         "Accept": "application/json",
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({label, value,sides, recycle:true })
+                    body: JSON.stringify({label, 
+                                          value,
+                                          sides, 
+                                          recycle:true,
+                                          ownUser:  localStorage.getItem('id') 
+                                         })
                 })
                     .then(response => {   
                         dispatch(figuresUpdated(true));
@@ -108,6 +113,8 @@ export const register = (username,password) => {
           .then(function (response) {
             if(response.status === 200){
                 localStorage.setItem('user', JSON.stringify(response.data.token));
+                localStorage.setItem('username', response.data.user);
+                localStorage.setItem('id', response.data.id);
                 history.push('/')
                 dispatch(badRequestLogin(false))
             }else if(response.status === 203){
@@ -131,6 +138,7 @@ export const login = (username,password) => {
             if(response.status === 200){
                 localStorage.setItem('user', response.data.token);
                 localStorage.setItem('username', response.data.user);
+                localStorage.setItem('id', response.data.id);
                 history.push('/')
                 dispatch(badRequestLogin(false))
             }else if(response.status === 203){

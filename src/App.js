@@ -6,7 +6,7 @@ import PrivateRoute from "./components/privateRoute"
 import LoginPage from "./container/login"
 import Registraion from "./container/register"
 import PrivateRouteForLogged from "./components/privateRouteForLogged"
-
+import UserPage from "./components/userPage"
 class App extends React.Component {    
     render(){
       return (
@@ -19,6 +19,7 @@ class App extends React.Component {
                   <PrivateRoute  path="/square" component={Form}/>
                   <PrivateRoute  path="/rectangle" component={Form}/>
                   <PrivateRoute  path="/triangle" component={Form}/>
+                  <PrivateRoute  path="/user/:username" component={UserPage}/>
                   <PrivateRouteForLogged  path="/login" component={LoginPage}/>
                   <PrivateRouteForLogged  path="/registraion" component={Registraion}/>
                   <Redirect to = "/"/>

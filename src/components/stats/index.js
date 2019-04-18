@@ -5,6 +5,9 @@ import "./stats.css"
 import Header from "../../container/header"
 
 class Stats extends Component {
+    componentDidMount(){
+        this.props.actions.getFigures(`http://localhost:3003/`)
+    }
     componentWillUnmount(){
         this.props.actions.showRecycle()
     }

@@ -2,6 +2,7 @@ import React from "react";
 import FigureItem from "../FigureItem"
 import './info.css';
 import Pagination from 'react-paginate';
+import history from "../../index"
 class Info extends React.Component {
     
     constructor(props) {
@@ -18,7 +19,15 @@ class Info extends React.Component {
     }
 
     componentDidMount() {
-        this.props.actions.getFigures(`http://localhost:3003/`)
+        var reg = /^\/user/
+        var path = window.location.pathname
+        if(path.match(reg)){
+            this.props.actions.getFigures(`http://localhost:3003${path}`)
+        }else{
+            this.props.actions.getFigures(`http://localhost:3003/`)
+        }          
+    }
+    componentWillMount(){
     }
     componentDidUpdate(prevProps) {
         if(this.props.wasUpdated !== prevProps.wasUpdated) {
@@ -27,7 +36,6 @@ class Info extends React.Component {
     }
     handlePageChange(pageNumber) {
         var page = pageNumber.selected + 1
-        console.log(page);
         this.setState({activePage: page});
     }
     handleChange(e){
@@ -47,17 +55,22 @@ class Info extends React.Component {
         }
     }
 
-    render(){    
+    render(){ 
+        
         const {figures, actions , value , lable, id} = this.props        
         const perPage = 5;
         const pages = Math.ceil(figures.info.length / perPage)  
         const currentPage = this.state.activePage
         const startOffset = (currentPage - 1) * perPage;    
-        let startCount = 0;                                                                     
+        let startCount = 0;
+        var arrayIsEmpty
+        figures.info.length === 0 ? arrayIsEmpty = true : arrayIsEmpty = false                                                                     
         return(
             <div className ="col col-md-12">
-                    <h1 className ="info">Информация</h1>
+                   
                     
+                    {arrayIsEmpty ?  <h1 className ="info">У вас пока нет фигур</h1> :<div className="">
+                    <h1 className ="info">Информация</h1>
                     <table id="grid" className="table">
                         <thead className="thead-light">
                         <tr>
@@ -78,7 +91,7 @@ class Info extends React.Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {    
+                        {   
                             figures.info.map((figureItem,index) =>{
                                 if(index >= startOffset && startCount < perPage ){
                                     startCount++;
@@ -88,7 +101,6 @@ class Info extends React.Component {
                                 }
                             }
                             )
-                            
                         } 
                         </tbody>
                     </table>
@@ -111,6 +123,7 @@ class Info extends React.Component {
                         pageClassName={'page-item'}
                         pageLinkClassName={"page-link"}
                         />
+                    </div> }
             </div>
         )
     }
