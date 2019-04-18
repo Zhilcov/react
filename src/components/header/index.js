@@ -19,7 +19,7 @@ class Header extends React.Component {
                                      
                         </Dropdown.Item>
                         <Dropdown.Item onClick={()=>{
-                                        localStorage.removeItem('user');
+                                        localStorage.clear();
                                          history.push('/')
                                         }}> 
                                      Выход

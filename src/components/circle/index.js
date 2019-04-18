@@ -42,7 +42,11 @@ class Circle extends React.Component{
               this.props.editFigures(`http://localhost:3003/${id}`,obj.calcArea(),[a]);              
             }
             this.setState({ redirectToNewPage: true, a:"0" })
-            this.props.show(`http://localhost:3003/showRecycle/${id}`);
+            
+            if(id !== null){
+               this.props.show(`http://localhost:3003/showRecycle/${id}`);
+            }
+            
         }
       }
       componentDidMount(){        

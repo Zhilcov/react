@@ -2,7 +2,6 @@ import React from "react";
 import FigureItem from "../FigureItem"
 import './info.css';
 import Pagination from 'react-paginate';
-import history from "../../index"
 class Info extends React.Component {
     
     constructor(props) {
@@ -15,23 +14,28 @@ class Info extends React.Component {
 
         };
         this.handleChange = this.handleChange.bind(this);  
-        this.handlePageChange = this.handlePageChange.bind(this);  
+        this.handlePageChange = this.handlePageChange.bind(this);
+        this.synchronizeData = this.synchronizeData.bind(this);  
     }
 
-    componentDidMount() {
+    synchronizeData(){
         var reg = /^\/user/
         var path = window.location.pathname
         if(path.match(reg)){
             this.props.actions.getFigures(`http://localhost:3003${path}`)
         }else{
             this.props.actions.getFigures(`http://localhost:3003/`)
-        }          
+        }   
+    }
+
+    componentDidMount() {
+        this.synchronizeData()  
     }
     componentWillMount(){
     }
     componentDidUpdate(prevProps) {
         if(this.props.wasUpdated !== prevProps.wasUpdated) {
-            this.props.actions.getFigures(`http://localhost:3003/`)
+            this.synchronizeData()  
         }
     }
     handlePageChange(pageNumber) {

@@ -8,9 +8,6 @@ class Stats extends Component {
     componentDidMount(){
         this.props.actions.getFigures(`http://localhost:3003/`)
     }
-    componentWillUnmount(){
-        this.props.actions.showRecycle()
-    }
     render(){
         
         var squares = 0;
