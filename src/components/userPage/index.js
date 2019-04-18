@@ -1,20 +1,19 @@
 import React from "react"
 import Header from "../header"
 import Info from "../../container/info"
+import {Route,Switch,Redirect} from "react-router-dom"
+import Statistics from '../../container/stats'
 class UserPage extends React.Component {
-    /* construstor(props){
-        super(props)
-
-        this.state = {
-
-        }
-    } */
-
     render(){
         return(
             <div className="container">
                 <Header/>
-                <Info/>
+                <Switch>
+                    <Route exact path ="/user/:name" component = {Info}/>
+                    <Route path ="/user/stats/:name" component = {Statistics}/>  
+                    <Redirect to = "/"/>
+                </Switch>
+                       
             </div>
         )
     }

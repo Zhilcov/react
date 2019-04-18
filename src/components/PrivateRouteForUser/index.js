@@ -7,7 +7,7 @@ function check(pathname) {
 
 export const PrivateRouteForUser = ({ component: Component, ...rest }) => (    
      <Route {...rest} render={props => (
-        localStorage.getItem('username') === check(props.location.pathname)
+      localStorage.getItem('username') === check(props.location.pathname)
             ? <Component {...props} />
             : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
     )} />

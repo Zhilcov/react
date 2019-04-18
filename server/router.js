@@ -29,7 +29,6 @@ module.exports = (app) => {
 
     app.get("/user/:name", async (req,res)=>{
       
-      console.log("пришел запрос с именем "+req.params.name);
       let user = await UsersModel.findOne({username: {$regex: _.escapeRegExp(req.params.name), $options: "i"}}).lean().exec();
       
          await FigureModel.find({ownUser:user._id})

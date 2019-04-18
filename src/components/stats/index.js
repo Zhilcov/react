@@ -6,7 +6,14 @@ import Header from "../../container/header"
 
 class Stats extends Component {
     componentDidMount(){
-        this.props.actions.getFigures(`http://localhost:3003/`)
+        var reg = /^\/user/
+        var path = window.location.pathname
+        var name = path.substring(path.lastIndexOf("/")+1);        
+        if(path.match(reg)){
+            this.props.actions.getFigures(`http://localhost:3003/user/${name}`)
+        }else{
+            this.props.actions.getFigures(`http://localhost:3003/`)
+        }  
     }
     render(){
         
@@ -28,12 +35,16 @@ class Stats extends Component {
             if (obj.label ==="triangle"){
                 triangle += obj.value;
             }      
-          });     
+          });   
+          var reg = /^\/user/  
+          var path = window.location.pathname
+          var userStat = path.match(reg) ;
         return(
          <div className="container">
-            <Header/>        
+         { userStat ? " " :<Header/> }
+                   
              <div className="col col-md-12 text-center">
-                <h1>Статистика</h1>
+                <h1>   { userStat ? "Ваша статистика" :"Статистика"}</h1>
                 <div className="row">
                     <div className="col col-md-6">
                         <TableForStats  squares = {squares} 

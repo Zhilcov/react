@@ -1,6 +1,6 @@
 import React from 'react';
 import Statistics from './container/stats'
-import {Switch, Redirect}  from 'react-router-dom';
+import {Switch, Redirect,Route}  from 'react-router-dom';
 import Form from "./components/form";
 import PrivateRoute from "./components/privateRoute"
 import LoginPage from "./container/login"
@@ -19,7 +19,8 @@ class App extends React.Component {
                   <PrivateRoute  path="/square" component={Form}/>
                   <PrivateRoute  path="/rectangle" component={Form}/>
                   <PrivateRoute  path="/triangle" component={Form}/>
-                  <PrivateRouteForUser  path={'/user/:name'} component={UserPage}/>
+                  <PrivateRouteForUser  path='/user/:name' component={UserPage}/>   
+                  <PrivateRouteForUser  path='/user/stats/:name' component={UserPage}/>   
                   <PrivateRouteForLogged  path="/login" component={LoginPage}/>
                   <PrivateRouteForLogged  path="/registraion" component={Registraion}/>
                   <Redirect to = "/"/>

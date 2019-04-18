@@ -60,7 +60,6 @@ class Info extends React.Component {
     }
 
     render(){ 
-        
         const {figures, actions , value , lable, id} = this.props        
         const perPage = 5;
         const pages = Math.ceil(figures.info.length / perPage)  
