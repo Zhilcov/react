@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button, Modal} from "react-bootstrap"
 import { Link}  from 'react-router-dom';
-
+import checkAdmin from "../../checkAdmin"
 class FigureItem extends React.Component{
     constructor(props, context) {
         super(props, context);
@@ -18,17 +18,17 @@ class FigureItem extends React.Component{
    
     render() {
         let smClose = () => this.setState({ smShow: false });
-        const { figure , deleteFigure, hideRecycle} = this.props;
-    
+        const { figure , deleteFigure, hideRecycle} = this.props;         
         return (
             <tr>
                 <th scope="row">{figure.id}</th>
                 <td>{figure.value}</td>
                 <td>{figure.label}</td>
-                <td>{figure.ownUser===localStorage.getItem("id") && figure.recycle ? <Link to ={{ pathname: `/${figure.label}`, search: `?id=${figure.id}&a=${figure.sides}` }}><i  onClick = {()=>{
+                <td>{(figure.ownUser===localStorage.getItem("id") && figure.recycle) || checkAdmin()  ? <Link to ={{ pathname: `/${figure.label}`, search: `?id=${figure.id}&a=${figure.sides}` }}><i  onClick = {()=>{
                     hideRecycle(`http://localhost:3003/hideRecycle/${figure.id}`);
                 }} className="fas fa-edit"></i></Link> : ''}</td>
-                <td>{figure.ownUser===localStorage.getItem("id") && figure.recycle ? <i className="fas fa-trash-alt" onClick = {this.smShow}  ></i>  : ''}</td>
+                <td>{(figure.ownUser===localStorage.getItem("id") && figure.recycle) || checkAdmin()  ? <i className="fas fa-trash-alt" onClick = {this.smShow}  ></i>  : ''}</td>
+                    
                     <Modal
                         size="sm"
                         show={this.state.smShow}

@@ -2,6 +2,8 @@ import React from 'react';
 import {Navbar, Nav, Dropdown, DropdownButton } from "react-bootstrap"
 import { Link } from 'react-router-dom';
 import history from "../../index"
+import checkAdmin from "../../checkAdmin"
+
 class Header extends React.Component {
     render(){
         return(
@@ -12,6 +14,16 @@ class Header extends React.Component {
                     <DropdownButton
                         title={"Привет " + localStorage.getItem("username") }
                     >
+                        {
+                            checkAdmin() ?  <Dropdown.Item onClick={()=>{
+                                                history.push('/user/admin/'+localStorage.getItem("username"))
+                                            }}> 
+                                            Управление
+                                        
+                                            </Dropdown.Item> :
+                                            ""
+                        }
+                       
                         <Dropdown.Item onClick={()=>{
                                             history.push('/user/'+localStorage.getItem("username"))
                                         }}> 

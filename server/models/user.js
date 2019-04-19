@@ -8,7 +8,7 @@ const UsersSchema = new Schema({
     username: {type: String},
     password: {type: String},
     addedAt: {type: Date, default: Date.now},
-    ownFigures : {type:Array , default: []}
+    isAdmin : {type:Boolean , default: false}
 }, {
     versionKey: false,
     collection: "UsersCollection"

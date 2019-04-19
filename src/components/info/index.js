@@ -11,7 +11,6 @@ class Info extends React.Component {
             hideValue: true,
             hideId: false,
             activePage: 1
-
         };
         this.handleChange = this.handleChange.bind(this);  
         this.handlePageChange = this.handlePageChange.bind(this);

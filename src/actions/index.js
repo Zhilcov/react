@@ -1,15 +1,24 @@
 import * as types from '../constants'
 import axios from "axios"
 import history from "../index"
+
 export const sortByValue = (value) => ({ type: types.SORT_BY_VALUE, value })
 export const sortByName = (name) => ({ type: types.SORT_BY_NAME, name})
 export const sort = (sort) => ({ type: types.SORT_DEFAULT, sort})
+
 export const figuresHasErrored = (bool) => ({type: "FIGURES_HAS_ERRORED", hasErrored: bool})
 export const figuresIsLoading = (bool) => ({type: "FIGURES_IS_LOADING",isLoading: bool})
 export const figuresFetchSuccess = (figures) => ({type: "FIGURES_FETCH_SUCCESS",figures})
 export const figuresUpdated = (bool) => ({ type: "FIGURES_WAS_UPDATED", bool})
+
+export const usersHasErrored = (bool) => ({type: "USERS_HAS_ERRORED", hasErrored: bool})
+export const usersIsLoading = (bool) => ({type: "USERS_IS_LOADING",isLoading: bool})
+export const usersFetchSuccess = (users) => ({type: "USERS_FETCH_SUCCESS",users})
+export const usersUpdated = (bool) => ({ type: "USERS_WAS_UPDATED", bool})
+
 export const success = (user) => { return { type: "REGISTER_SUCCESS", user } }
 export const badRequestLogin = (bool) => ({type:"BAD_REQUEST", bool}) 
+
 export const getFigures = (url) => {
     return dispatch => {
         dispatch(figuresIsLoading(true));
@@ -54,14 +63,16 @@ export const addFigure = (url,label,value,sides) => {
 export const deleteFigure = url => {
             return dispatch => {
             fetch(url, {
-                method: "DELETE"
+                method: "DELETE",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({id: localStorage.getItem("id")})
             })
                 .then(response => {
                     dispatch(figuresUpdated(true));
                 })
                 .catch(()=> {console.log("Error with deleting")})
         } 
-    }
+}
 
 export const editFigure = (url,value,sides) => {
     value = Math.round(value * 100) / 100
@@ -115,6 +126,7 @@ export const register = (username,password) => {
                 localStorage.setItem('user', JSON.stringify(response.data.token));
                 localStorage.setItem('username', response.data.user);
                 localStorage.setItem('id', response.data.id);
+                localStorage.setItem('isAdmin', response.data.admin);
                 history.push('/')
                 dispatch(badRequestLogin(false))
             }else if(response.status === 203){
@@ -139,6 +151,7 @@ export const login = (username,password) => {
                 localStorage.setItem('user', response.data.token);
                 localStorage.setItem('username', response.data.user);
                 localStorage.setItem('id', response.data.id);
+                localStorage.setItem('isAdmin', response.data.admin);
                 history.push('/')
                 dispatch(badRequestLogin(false))
             }else if(response.status === 203){
@@ -152,6 +165,54 @@ export const login = (username,password) => {
     }
 }
 
-export const logout = () => {
-   
+export const getUsers = (url) => {
+    return dispatch => {
+        dispatch(usersIsLoading(true));
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(response.statusText);
+                }
+                dispatch(usersIsLoading(false));
+                dispatch(usersUpdated(false));
+                
+                return response;
+            })
+            .then(response => response.json())
+            .then(users => dispatch(usersFetchSuccess(users)))
+            .catch(() => dispatch(usersHasErrored(true)));
+    }
+};
+
+export const setAdmin = url =>{
+    return dispatch => {
+        fetch(url, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id: localStorage.getItem("id")})
+        })
+            .then(response => {
+                dispatch(usersUpdated(true));
+            })
+            .catch((err)=>{console.log(err)})
+    }
+}
+
+export const deleteUser = url => {
+    return dispatch => {
+        fetch(url, {
+            method: "DELETE",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id: localStorage.getItem("id")})
+        })
+            .then(response => {
+                console.log(response);
+                
+                dispatch(usersUpdated(true));
+            })
+            .catch(()=> {console.log("Error with deleting")})
+    } 
 }

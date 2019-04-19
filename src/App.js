@@ -7,7 +7,9 @@ import LoginPage from "./container/login"
 import Registraion from "./container/register"
 import PrivateRouteForUser from "./components/PrivateRouteForUser"
 import PrivateRouteForLogged from "./components/privateRouteForLogged"
+
 import UserPage from "./components/userPage"
+
 class App extends React.Component {    
     render(){
       return (
@@ -20,13 +22,12 @@ class App extends React.Component {
                   <PrivateRoute  path="/rectangle" component={Form}/>
                   <PrivateRoute  path="/triangle" component={Form}/>
                   <PrivateRouteForUser  path='/user/:name' component={UserPage}/>   
-                  <PrivateRouteForUser  path='/user/stats/:name' component={UserPage}/>   
+                  <PrivateRouteForUser  path='/user/stats/:name' component={UserPage}/>    
                   <PrivateRouteForLogged  path="/login" component={LoginPage}/>
                   <PrivateRouteForLogged  path="/registraion" component={Registraion}/>
                   <Redirect to = "/"/>
                 </Switch>
         </div>
-       
       )
     }
 } 

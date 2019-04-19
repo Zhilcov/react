@@ -39,37 +39,43 @@ class Stats extends Component {
           var reg = /^\/user/  
           var path = window.location.pathname
           var userStat = path.match(reg) ;
+            
         return(
+            
          <div className="container">
          { userStat ? " " :<Header/> }
-                   
-             <div className="col col-md-12 text-center">
-                <h1>   { userStat ? "Ваша статистика" :"Статистика"}</h1>
-                <div className="row">
-                    <div className="col col-md-6">
-                        <TableForStats  squares = {squares} 
-                                        rectangle={rectangle} 
-                                        circle={circle}
-                                        triangle={triangle}>
-                        </TableForStats>
-                    </div>
-                    <div className="col col-md-6">
-                        <Pie 
-                        data={[{value:squares,label:"squares"},
-                                {value:rectangle,label:"rectangle"},
-                                {value:circle,label:"circle"},
-                                {value:triangle,label:"triangle"}]}
-                        options={{
-                            title:'cool pie chart',
-                            text:"coolest data",
-                            width:100,
-                            height:100
-                        }}
-                        height={283} width={566}
-                        />
-                    </div>
+         {figures.length === 0 ? <h1> у вас нет фигур</h1> :
+            <div className="col col-md-12 text-center">
+            <h1>   { userStat ? "Ваша статистика" :"Статистика"}</h1>
+            <div className="row">
+                <div className="col col-md-6">
+                    <TableForStats  squares = {squares} 
+                                    rectangle={rectangle} 
+                                    circle={circle}
+                                    triangle={triangle}>
+                    </TableForStats>
                 </div>
-          </div>
+                <div className="col col-md-6">
+                    <Pie 
+                    data={[{value:squares,label:"squares"},
+                            {value:rectangle,label:"rectangle"},
+                            {value:circle,label:"circle"},
+                            {value:triangle,label:"triangle"}]}
+                    options={{
+                        title:'cool pie chart',
+                        text:"coolest data",
+                        width:100,
+                        height:100
+                    }}
+                    height={283} width={566}
+                    />
+                </div>
+            </div>
+        </div>
+            }
+         
+                   
+             
          </div>
         );
     }

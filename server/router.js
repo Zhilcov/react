@@ -21,16 +21,21 @@ module.exports = (app) => {
       .then(figures => {
       res.send(figures);      
       })
-
       .catch((err)=>{
         console.log(err);
       })
     })
-
+    app.get("/getUsers", (req,res)=>{
+      UsersModel.find({isAdmin:false})
+      .then(users => {
+      res.send(users);      
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    })
     app.get("/user/:name", async (req,res)=>{
-      
       let user = await UsersModel.findOne({username: {$regex: _.escapeRegExp(req.params.name), $options: "i"}}).lean().exec();
-      
          await FigureModel.find({ownUser:user._id})
            .then((figures)=>{
              res.send(figures)
@@ -57,17 +62,56 @@ module.exports = (app) => {
         })
     });
 
-    app.delete("/delFigure/:id", (req, res)=>{        
-        FigureModel.deleteOne({id: req.params.id})
+    app.post("/setAdmin/:id", async (req, res)=>{
+      let user = await UsersModel.findOne({_id: req.body.id}).exec() || {name:"e"}; 
+        if(user.isAdmin){
+          UsersModel.findByIdAndUpdate({_id: req.params.id}, {isAdmin:true})
+            .then(()=>{
+              res.status(200).send("set");
+            })
+        }else {
+          res.status(403).send("Нет доступа")
+        }
+    });
+
+    app.delete("/delFigure/:id", async (req, res)=>{
+       let figure = await FigureModel.findOne({id: req.params.id}).exec() || {ownUser:"e"};
+       let user = await UsersModel.findOne({_id: req.body.id}).exec() || {name:"e"}; 
+        if((figure.ownUser === req.body.id) || user.isAdmin){
+          await FigureModel.deleteOne({id: req.params.id})
           .then(figure => {
             res.send(figure);
           })
           .catch((err)=>{
             console.log(err);
-          })
+          }) 
+        }else {
+          res.status(403).send("Нет доступа")
+        }
       });
     
-      
+    app.delete("/delUser/:id", async (req, res)=>{
+         let user = await UsersModel.findOne({_id: req.body.id}).exec() || {name:"e"}; 
+         if(user.isAdmin){
+            FigureModel.deleteMany({ownUser:req.params.id})
+            .then(()=>{
+                  UsersModel.deleteOne({_id:req.params.id})
+                  .then(user=>{
+                    res.send(user);
+                  })
+                  .catch((err)=>{
+                    console.log(err);
+                  }) 
+            })
+            .catch((err)=>{
+              console.log(err);
+            }) 
+         }else {
+          res.status(403).send("Нет доступа")
+        } 
+        
+         
+    });  
     app.put("/:id", (req, res)=>{
         FigureModel.findOneAndUpdate({id: req.params.id}, req.body)
           .then(() => {
@@ -120,7 +164,10 @@ module.exports = (app) => {
               httpOnly: true
           });
  */        
-          res.status(200).send({message: "User created.", token:token,user:user.username,id :user._id });
+          res.status(200).send({token:token,
+                                user:user.username, 
+                                id :user._id, 
+                                admin: user.isAdmin });
 
       } catch (e) {
           console.error("E, register,", e);
@@ -135,8 +182,10 @@ module.exports = (app) => {
             let user = await UsersModel.findOne({username: {$regex: _.escapeRegExp(req.body.username), $options: "i"}}).lean().exec();
             if(user != void(0) && bcrypt.compareSync(req.body.password, user.password)) {
                 const token = createToken({id: user._id, username: user.username});
-                
-                res.status(200).send({message: "User login success.", token:token,user:user.username,id :user._id });
+                res.status(200).send({token:token,
+                                      user:user.username, 
+                                      id :user._id, 
+                                      admin: user.isAdmin });
             } else res.status(203).send({message: "User not exist or password not correct"});
         } catch (e) {
             console.error("E, login,", e);
