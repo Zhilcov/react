@@ -1,5 +1,5 @@
 import React from "react"
-import {Form,  Button, InputGroup} from "react-bootstrap"
+import {Form,  Button, Alert,} from "react-bootstrap"
 import "./index.css"
 
 class UserName extends React.Component {
@@ -21,12 +21,19 @@ class UserName extends React.Component {
         this.props.changeUsername(localStorage.getItem("id"),this.state.username)
 
     }
-    render(){
+    render(){     
+        console.log(this.props.req);
+           
         return(
             <div className="container username">
                <div className="row">
-                <div className="col col-md-8 ">
-                <Form onSubmit = {this.handleSubmit} >
+                <div className="col col-md-9 ">
+                {this.props.req? 
+                <Alert variant = "danger">
+                    Это имя занято
+                </Alert> : ""
+                }
+                <Form onSubmit = {this.handleSubmit}>
                 <Form.Group className = "form change-username">
                         <Form.Label>Имя</Form.Label>
                         <Form.Control

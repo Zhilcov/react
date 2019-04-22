@@ -20,6 +20,7 @@ export const success = (user) => { return { type: "REGISTER_SUCCESS", user } }
 export const badRequestLogin = (bool) => ({type:"BAD_REQUEST", bool}) 
 export const badRequestChangePassword = (bool,message) =>({type:"BAD_CHANGEPASS_REQUEST", bool,message})
 export const goodRequestChangePassword = (bool,message) =>({type:"GOOD_CHANGEPASS_REQUEST", bool,message})
+export const badRequestChangeUsername  = (bool) =>({type:"BAD_CHANGEUSER_REQUEST", bool})
 
 export const getFigures = (url) => {
     return dispatch => {
@@ -149,10 +150,12 @@ export const changeUsername = (user,username) => {
           })
           .then(function (response) {
             if(response.status === 200){
+                dispatch(badRequestChangeUsername(false))
               localStorage.setItem('username', response.data.username);
               history.push('/')
             }else if(response.status === 203){
-               
+               console.log(response.data.message);
+               dispatch(badRequestChangeUsername(true))
             }
           })
           .catch(function (response) {

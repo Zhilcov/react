@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import todos from './figuresOperation'
 import {figuresHasErrored, figuresIsLoading, figuresUpdated, authorizRequests,  
         usersHasErrored, usersIsLoading,usersUpdated,usersFetchSuccess,
-        changePassRequests} from "./serverResponse"
+        changePassRequests,changeUsernameRequests} from "./serverResponse"
 import { routerReducer } from 'react-router-redux';
 
 const rootReducer = combineReducers({
@@ -16,7 +16,8 @@ const rootReducer = combineReducers({
   usersIsLoading,
   usersUpdated,
   usersFetchSuccess,
-  changePassRequests
+  changePassRequests,
+  changeUsernameRequests
 })
 
 export default rootReducer

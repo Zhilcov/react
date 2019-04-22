@@ -34,6 +34,15 @@ export function authorizRequests(state = false, action){
     }
 }
 
+export function changeUsernameRequests(state = false, action){
+    switch (action.type) {
+        case "BAD_CHANGEUSER_REQUEST":
+            return action.bool
+        default:
+            return state;
+    }
+}
+
 export function changePassRequests(state = {bad:false, good:false, message:""}, action){
     switch (action.type) {
         case "BAD_CHANGEPASS_REQUEST":

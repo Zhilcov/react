@@ -89,8 +89,13 @@ module.exports = (app) => {
     });
 
     app.post("/changeUsername", async (req, res)=>{
-      let user = await UsersModel.findOne({_id: req.body.user}).exec(); 
       let newUsername= req.body.username
+      var user = await UsersModel.findOne({username: newUsername}).lean().exec();
+     
+      if(user != void(0)) return res.status(203).send({message: "User already exist"});
+     
+
+      user = await UsersModel.findOne({_id: req.body.user}).exec(); 
       if(user != void(0)) {
         UsersModel.findByIdAndUpdate({_id: req.body.user}, {username:newUsername})  
           .then( async ()=>{
