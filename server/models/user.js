@@ -8,7 +8,8 @@ const UsersSchema = new Schema({
     username: {type: String},
     password: {type: String},
     addedAt: {type: Date, default: Date.now},
-    isAdmin : {type:Boolean , default: false}
+    isAdmin : {type:Boolean , default: false},
+    lastPasswordChange:{type:Date, default:"0999-12-31T21:00:00.000+00:00"}
 }, {
     versionKey: false,
     collection: "UsersCollection"

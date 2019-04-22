@@ -18,6 +18,8 @@ export const usersUpdated = (bool) => ({ type: "USERS_WAS_UPDATED", bool})
 
 export const success = (user) => { return { type: "REGISTER_SUCCESS", user } }
 export const badRequestLogin = (bool) => ({type:"BAD_REQUEST", bool}) 
+export const badRequestChangePassword = (bool,message) =>({type:"BAD_CHANGEPASS_REQUEST", bool,message})
+export const goodRequestChangePassword = (bool,message) =>({type:"GOOD_CHANGEPASS_REQUEST", bool,message})
 
 export const getFigures = (url) => {
     return dispatch => {
@@ -127,15 +129,55 @@ export const register = (username,password) => {
                 localStorage.setItem('username', response.data.user);
                 localStorage.setItem('id', response.data.id);
                 localStorage.setItem('isAdmin', response.data.admin);
+                localStorage.setItem('lastChange', response.data.lastChange);
                 history.push('/')
                 dispatch(badRequestLogin(false))
             }else if(response.status === 203){
-                console.log("User already exist");
                 dispatch(badRequestLogin(true))
             }
           })
           .catch(function (error) {
             console.log(error);
+          });
+    }
+}
+export const changeUsername = (user,username) => {
+    return dispatch => {
+        axios.post('http://localhost:3003/changeUsername', {
+            user: user,
+            username: username
+          })
+          .then(function (response) {
+            if(response.status === 200){
+              localStorage.setItem('username', response.data.username);
+              history.push('/')
+            }else if(response.status === 203){
+               
+            }
+          })
+          .catch(function (response) {
+            console.log(response);
+          });
+    }
+}
+export const changePassword = (user,password,newPassword) => {
+    return dispatch => {
+        axios.post('http://localhost:3003/changePassword', {
+            user: user,
+            password: password,
+            newPassword: newPassword
+          })
+          .then(function (response) {
+            if(response.status === 200){
+                localStorage.setItem('lastChange', response.data.lastChange);
+                dispatch(badRequestChangePassword(false,""))
+                dispatch(goodRequestChangePassword(true,"Пароль успешно изменен"))
+            }else if(response.status === 203){
+                dispatch(badRequestChangePassword(true, "Прежний пароль введён неправильно"))
+            }
+          })
+          .catch(function (response) {
+            console.log(response);
           });
     }
 }
@@ -152,6 +194,7 @@ export const login = (username,password) => {
                 localStorage.setItem('username', response.data.user);
                 localStorage.setItem('id', response.data.id);
                 localStorage.setItem('isAdmin', response.data.admin);
+                localStorage.setItem('lastChange', response.data.lastChange);
                 history.push('/')
                 dispatch(badRequestLogin(false))
             }else if(response.status === 203){
@@ -160,7 +203,7 @@ export const login = (username,password) => {
             }
           })
           .catch(function (response) {
-            console.log(response+ " sd");
+            console.log(response);
           });
     }
 }

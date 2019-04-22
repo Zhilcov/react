@@ -22,7 +22,8 @@ class App extends React.Component {
                   <PrivateRoute  path="/rectangle" component={Form}/>
                   <PrivateRoute  path="/triangle" component={Form}/>
                   <PrivateRouteForUser  path='/user/:name' component={UserPage}/>   
-                  <PrivateRouteForUser  path='/user/stats/:name' component={UserPage}/>    
+                  <PrivateRouteForUser  path='/user/stats/:name' component={UserPage}/>
+                  <PrivateRouteForUser  path='/user/settings/:name' component={UserPage}/>     
                   <PrivateRouteForLogged  path="/login" component={LoginPage}/>
                   <PrivateRouteForLogged  path="/registraion" component={Registraion}/>
                   <Redirect to = "/"/>

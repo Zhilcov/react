@@ -19,7 +19,7 @@ class UserItem extends React.Component{
         const { user , deleteUser,setAdmin,index } = this.props;          
         return (
             <tr>
-                  <th scope="row">{index}</th>
+                  <th scope="row">{index+1}</th>
                   <th scope="row">{user.username}</th>
                   <td className="text-center"><i className="fas fa-crown" onClick = {()=>setAdmin(`http://localhost:3003/setAdmin/${user._id}`)}></i></td>
                   <td className="text-center"><i className="fas fa-trash-alt" onClick = {this.smShow}  ></i></td>
@@ -32,7 +32,7 @@ class UserItem extends React.Component{
                     >
                     <Modal.Header closeButton>
                     <Modal.Title id="example-modal-sizes-title-sm">
-                        Удалить?
+                        Удалить пользователя?
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

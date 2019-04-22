@@ -19,7 +19,6 @@ class Header extends React.Component {
                                                 history.push('/user/admin/'+localStorage.getItem("username"))
                                             }}> 
                                             Управление
-                                        
                                             </Dropdown.Item> :
                                             ""
                         }
@@ -34,6 +33,11 @@ class Header extends React.Component {
                                         }}> 
                                          Моя статистика
                                      
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={()=>{
+                                            history.push('/user/settings/'+localStorage.getItem("username"))
+                                        }}> 
+                                         Настройки
                         </Dropdown.Item> 
                         <Dropdown.Item onClick={()=>{
                                         localStorage.clear();

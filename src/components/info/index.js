@@ -30,8 +30,6 @@ class Info extends React.Component {
     componentDidMount() {
         this.synchronizeData()  
     }
-    componentWillMount(){
-    }
     componentDidUpdate(prevProps) {
         if(this.props.wasUpdated !== prevProps.wasUpdated) {
             this.synchronizeData()  

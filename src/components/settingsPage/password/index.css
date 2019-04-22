@@ -1,0 +1,26 @@
+.passwordText{
+   display: flex;
+   flex-direction: column;
+   margin-top: 10px;
+}
+.passwordText > p {
+    margin: 10px 0;
+}
+
+.password-change{
+    margin-top: 10px;
+}
+.prechange{
+    padding: 20px 0 ;
+    cursor: pointer;
+}
+.change{
+    border-bottom: solid 1px #c0b9b9
+}
+.cancel-button{
+    cursor: pointer;
+}
+.cancel-button:hover,.change-button:hover{
+    text-decoration: underline !important;
+    color: #3343d4  !important;
+}

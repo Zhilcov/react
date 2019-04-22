@@ -1,0 +1,20 @@
+
+.change-username{
+    margin-left: 16%;
+}
+.change-username > .form-control{
+    margin: 0 0 !important;
+}
+.username {
+    border-bottom: solid 1px #c0b9b9
+}
+
+.form{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: baseline
+}
+.form >.form-label{
+    padding-right: 5px;
+}

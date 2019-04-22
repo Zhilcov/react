@@ -74,6 +74,34 @@ module.exports = (app) => {
         }
     });
 
+    app.post("/changePassword", async (req, res)=>{
+      let user = await UsersModel.findOne({_id: req.body.user}).exec(); 
+      let password = req.body.password
+      let newPassword = req.body.newPassword
+      if(user != void(0) && bcrypt.compareSync(password, user.password)) {
+        UsersModel.findByIdAndUpdate({_id: req.body.user},{password:bcrypt.hashSync(newPassword, 12),lastPasswordChange:Date.now()})  
+          .then((userr)=>{
+              res.status(200).send({lastChange:userr.lastPasswordChange});
+        })               
+      }else{
+        res.status(203).send("Прежний пароль введён неправильно"); 
+      }
+    });
+
+    app.post("/changeUsername", async (req, res)=>{
+      let user = await UsersModel.findOne({_id: req.body.user}).exec(); 
+      let newUsername= req.body.username
+      if(user != void(0)) {
+        UsersModel.findByIdAndUpdate({_id: req.body.user}, {username:newUsername})  
+          .then( async ()=>{
+              user = await UsersModel.findOne({_id: req.body.user}).exec();
+              res.status(200).send(user);
+        })               
+      }else{
+        res.status(203).send("Прежний пароль введён неправильно"); 
+      }
+    });
+
     app.delete("/delFigure/:id", async (req, res)=>{
        let figure = await FigureModel.findOne({id: req.params.id}).exec() || {ownUser:"e"};
        let user = await UsersModel.findOne({_id: req.body.id}).exec() || {name:"e"}; 
@@ -108,10 +136,9 @@ module.exports = (app) => {
             }) 
          }else {
           res.status(403).send("Нет доступа")
-        } 
-        
-         
+        }
     });  
+    
     app.put("/:id", (req, res)=>{
         FigureModel.findOneAndUpdate({id: req.params.id}, req.body)
           .then(() => {
@@ -157,7 +184,8 @@ module.exports = (app) => {
           user = await UsersModel.create({
               username: req.body.username,
               password: req.body.password
-          });          
+          });     
+
           const token = createToken({id: user._id, username: user.username});
 /* 
           res.cookie('token', token, {
@@ -167,7 +195,8 @@ module.exports = (app) => {
           res.status(200).send({token:token,
                                 user:user.username, 
                                 id :user._id, 
-                                admin: user.isAdmin });
+                                admin: user.isAdmin,
+                                lastChange: user.lastPasswordChange  });
 
       } catch (e) {
           console.error("E, register,", e);
@@ -179,13 +208,14 @@ module.exports = (app) => {
 
       app.post('/login', async (req, res) => {
         try {
-            let user = await UsersModel.findOne({username: {$regex: _.escapeRegExp(req.body.username), $options: "i"}}).lean().exec();
+            let user = await UsersModel.findOne({username:req.body.username}).lean().exec();
             if(user != void(0) && bcrypt.compareSync(req.body.password, user.password)) {
                 const token = createToken({id: user._id, username: user.username});
                 res.status(200).send({token:token,
                                       user:user.username, 
                                       id :user._id, 
-                                      admin: user.isAdmin });
+                                      admin: user.isAdmin,
+                                      lastChange: user.lastPasswordChange });
             } else res.status(203).send({message: "User not exist or password not correct"});
         } catch (e) {
             console.error("E, login,", e);

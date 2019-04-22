@@ -34,6 +34,17 @@ export function authorizRequests(state = false, action){
     }
 }
 
+export function changePassRequests(state = {bad:false, good:false, message:""}, action){
+    switch (action.type) {
+        case "BAD_CHANGEPASS_REQUEST":
+            return Object.assign({},state, {bad:action.bool, good:false, message:action.message} )
+        case "GOOD_CHANGEPASS_REQUEST":
+            return Object.assign({},state, {good:action.bool, message:action.message} )    
+        default:
+            return state;
+    }
+}
+
 export function usersFetchSuccess(state = [], action){
     switch (action.type) {
         case "USERS_FETCH_SUCCESS":        
